@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chongoku Sebs Corp</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0B0B0F;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            background: radial-gradient(ellipse at 30% 40%, #1a0a2e, #0B0B0F);
+        }
+        h1 {
+            font-size: 4rem;
+            background: linear-gradient(90deg, #00ffff, #ff00ff, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #88ddff;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+        }
+        .menu {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 20px 40px;
+            border-radius: 60px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            box-shadow: 0 0 30px rgba(0,255,255,0.1);
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(0,255,255,0.3);
+            border-color: #00ffff;
+        }
+        .btn.clasico { border-color: #00ffff; }
+        .btn.viaje { border-color: #ff00ff; }
+        .btn.clasico:hover { background: rgba(0,255,255,0.1); }
+        .btn.viaje:hover { background: rgba(255,0,255,0.1); }
+        .footer {
+            margin-top: 50px;
+            color: rgba(255,255,255,0.3);
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>🌌 CHONGOKU SEBS CORP</h1>
+    <p>Elige tu experiencia</p>
+    <div class="menu">
+        <a href="clasico.html" class="btn clasico">🛸 Modo Clásico</a>
+        <a href="viaje.html" class="btn viaje">🚀 Modo Viaje Interestelar</a>
+    </div>
+    <div class="footer">"Imagina. Habla. Nosotros lo hacemos posible."</div>
+</body>
+</html>
