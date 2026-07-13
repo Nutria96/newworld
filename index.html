@@ -1,0 +1,15 @@
+/* Efecto de brillo en los botones al pasar el mouse */
+.btn-accion::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #FF3B30, #FF8C00, #FFD700, #00FF7F, #00BFFF, #8A2BE2, #FF1493);
+    background-size: 400% 400%;
+    border-radius: 50px;
+    z-index: -1;
+    animation: arcoiris 3s ease-in-out infinite;
+    filter: blur(4px);
+}
