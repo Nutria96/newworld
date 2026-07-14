@@ -1,4 +1,4 @@
-const CACHE="chong-flota-v5",ASSETS=["./","./index.html","./styles.css","./identity.css","./multimodal.css","./config.js","./app.js","./manifest.webmanifest","./assets/icon/icon-32.png","./assets/icon/icon-64.png","./assets/icon/icon-256.png","./assets/icon/icon-512.png"];
+const CACHE="chong-flota-v6",ASSETS=["./","./index.html","./styles.css","./identity.css","./multimodal.css","./config.js","./app.js","./manifest.webmanifest","./assets/icon/icon-32.png","./assets/icon/icon-64.png","./assets/icon/icon-256.png","./assets/icon/icon-512.png"];
 self.addEventListener("install",e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(ASSETS))));
 self.addEventListener("activate",e=>e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k))))));
 self.addEventListener("fetch",e=>{if(e.request.method!=="GET"||new URL(e.request.url).origin!==location.origin)return;e.respondWith(fetch(e.request).then(r=>{const copy=r.clone();caches.open(CACHE).then(c=>c.put(e.request,copy));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match("./index.html"))))});
