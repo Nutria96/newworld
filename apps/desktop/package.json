@@ -1,0 +1,21 @@
+{
+  "name": "@chong/desktop",
+  "version": "1.0.0",
+  "private": true,
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win nsis",
+    "build:mac": "electron-builder --mac dmg"
+  },
+  "devDependencies": {"electron": "^33.0.0", "electron-builder": "^25.1.8"},
+  "build": {
+    "appId": "com.chongseb.nasa",
+    "productName": "NASA de Chong",
+    "files": ["main.cjs", "preload.cjs", "../web/**/*"],
+    "directories": {"output": "../../release"},
+    "win": {"target": "nsis", "icon": "../web/assets/icon/nutria-astronauta.ico"},
+    "mac": {"target": "dmg", "icon": "../web/assets/icon/nutria-astronauta.icns", "category": "public.app-category.entertainment"},
+    "nsis": {"oneClick": false, "allowToChangeInstallationDirectory": true}
+  }
+}

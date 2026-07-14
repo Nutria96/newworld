@@ -1,84 +1,97 @@
-[GENERACIÓN DE README.md PARA GITHUB]
+# NASA CHONG FLOTA
 
-Necesito que generes un archivo README.md completo y profesional para mi proyecto "Chongoku Sebs Corp - Smart World AI", que voy a subir a GitHub. El README debe ser claro, visualmente atractivo (con emojis y formato Markdown) y contener toda la información que un visitante o colaborador necesitaría para entender, usar y contribuir al proyecto.
+![Nutria Astronauta](apps/web/assets/icon/nutria-astronauta-master.png)
 
-============================================================
-INFORMACIÓN DEL PROYECTO
-============================================================
+## Solo llámame nutria
 
-Nombre del proyecto: Chongoku Sebs Corp - Smart World AI
-Eslogan: "Imagina. Habla. Nosotros lo hacemos posible."
-Descripción: Página web futurista con interfaz de IA, reconocimiento de voz, chat interactivo, modo NITRO (efectos visuales extremos) y soporte para PWA (Progressive Web App). Está diseñada para ser instalable en dispositivos móviles y de escritorio, con un estilo visual de ciencia ficción, colores neón y efectos de glassmorphism.
+La Nutria Astronauta nació como una imagen generada para representar el tono de la NASA de Chong: curiosidad, humor y aventura dentro de una burbuja cristalina. Esa imagen se convirtió en el emblema común de toda la flota. El azul medianoche aporta profundidad espacial; el cian comunica tecnología y claridad; el violeta añade el carácter interestelar; y el pequeño acento dorado representa la chispa juguetona de la misión.
 
-Objetivo del proyecto: Crear una plataforma accesible y gratuita donde cualquier persona pueda interactuar con una IA para realizar tareas como crear currículums, explicar conceptos, generar ideas, automatizar procesos y más. El proyecto tiene un enfoque social y busca apoyar a comunidades, enfermos de cáncer y causas relacionadas con la justicia social y la energía sustentable.
+El mismo máster alimenta favicon, PWA, perfil social, instaladores Electron y recursos Capacitor, evitando identidades diferentes entre plataformas.
 
-Tecnologías utilizadas:
-- HTML5, CSS3 y JavaScript (vanilla).
-- Web Speech API para reconocimiento de voz.
-- Canvas para partículas animadas.
-- PWA (manifest.json y service-worker.js) para instalación offline.
-- Fuentes de Google: Orbitron e Inter.
-- Despliegue en Netlify con integración continua desde GitHub.
+Código compartido para web/PWA, Windows, macOS, Android e iOS.
 
-Funcionalidades principales:
-- Chat interactivo con IA (simulación, lista para conectar con DeepSeek API).
-- Reconocimiento de voz (comando por micrófono).
-- Modo NITRO (efectos visuales extremos al hacer doble clic en el logo).
-- Fondo con partículas interactivas que reaccionan al mouse.
-- Diseño responsivo (mobile first).
-- Instalable como aplicación (PWA).
-- Botones de acción rápida: IA, Crear, Automatizar.
+## Arquitectura
 
-Estructura de archivos:
-- index.html (página principal con CSS y JS embebidos).
-- manifest.json (configuración PWA).
-- service-worker.js (caché offline).
-- smartool.txt (script de autoayuda).
-- README.md (este archivo).
+- `apps/web`: interfaz compartida, PWA y modo offline.
+- `apps/desktop`: contenedor Electron endurecido (`contextIsolation`, sandbox y sin Node en la página).
+- `apps/mobile`: configuración Capacitor para Android/iOS.
+- `backend`: Netlify Functions y SQL existentes. Los secretos viven únicamente en el hosting.
 
-Instrucciones de instalación y uso:
-- Clonar el repositorio o descargar los archivos.
-- Abrir index.html en un navegador moderno (Chrome, Edge, Firefox).
-- Para instalarlo como aplicación, usar la opción "Instalar" del navegador (si es compatible).
-- Para desarrollo, se puede usar Netlify CLI o cualquier servidor local.
+## Preparación
 
-Despliegue:
-- El proyecto está configurado para desplegarse en Netlify con integración continua desde GitHub.
-- También se puede desplegar en cualquier servidor web estático.
+Requiere Node 20+ y acceso a npm:
 
-Contribuciones:
-- Las contribuciones son bienvenidas. Puedes hacer fork, crear ramas y enviar pull requests.
-- Áreas de mejora: conectar IA real (DeepSeek API), añadir más comandos, mejorar diseño.
+```powershell
+npm install
+npm test
+```
 
-Licencia: MIT (o la que el usuario prefiera).
+Antes de compilar, cambia `apps/web/config.js` para apuntar al Deploy Preview o a producción. El valor debe ser una URL pública; jamás agregues claves secretas.
 
-Créditos:
-- Proyecto creado por "Nutria Watchdog" para Chongoku Sebs Corp.
-- Inspirado en la necesidad de herramientas accesibles con inteligencia artificial para todos.
+## Windows
 
-Enlaces:
-- Repositorio: https://github.com/tu-usuario/chongoku-sebs-ai
-- Sitio en vivo: https://sebchongcorp.com (o la URL que corresponda).
+```powershell
+npm run build:win
+```
 
-============================================================
-REQUISITOS DEL README
-============================================================
+Genera el instalador en `release/`. La firma Authenticode requiere un certificado del propietario.
 
-1. Debe tener un encabezado principal con el nombre del proyecto y un subtítulo atractivo.
-2. Incluir una sección de "Características" con viñetas claras.
-3. Agregar una sección de "Capturas de pantalla" o "Demo" (puede ser un placeholder o enlace).
-4. Explicar cómo instalar y ejecutar el proyecto localmente.
-5. Instrucciones para desplegar en Netlify.
-6. Sección de "Tecnologías usadas" con iconos o texto claro.
-7. Sección de "Contribuciones" y "Licencia".
-8. Usar emojis y formato Markdown para hacerlo visualmente atractivo.
-9. Incluir un badge o insignia de estado (ej: "Desplegado en Netlify", "Hecho con ❤️").
-10. Ser conciso pero completo, de modo que cualquier persona entienda el proyecto en 5 minutos.
+## macOS
 
-============================================================
-ENTREGA FINAL
-============================================================
+Ejecutar en una Mac con Xcode:
 
-Entrégame el código completo del README.md en un solo bloque de texto, listo para copiar y pegar. No me des explicaciones adicionales, solo el código.
+```bash
+npm install
+npm run build:mac
+```
 
-¡Ejecuta ahora!
+Para distribución pública se necesitan Apple Developer ID, firma y notarización. Un `.dmg` confiable no puede producirse correctamente desde Windows sin esas credenciales.
+
+## Android
+
+```powershell
+cd apps/mobile
+npx cap add android
+npm run sync
+npm run android
+```
+
+Compila/firma el AAB desde Android Studio. Las notificaciones push reales requieren Firebase; el scaffold incluye la base para notificaciones locales.
+
+## iOS
+
+En macOS:
+
+```bash
+cd apps/mobile
+npx cap add ios
+npm run sync
+npm run ios
+```
+
+Requiere Xcode y una cuenta Apple Developer. Cámara y micrófono deben solicitar permisos con descripciones claras antes de publicación.
+
+## Pagos y secretos
+
+Stripe Checkout y PayPal se abren fuera de la WebView. `SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `PAYPAL_CLIENT_SECRET` y `TELEGRAM_BOT_TOKEN` nunca se empaquetan en las apps. Las Netlify Functions conservan esas credenciales y verifican webhooks.
+
+## Límites actuales
+
+- Hay UI y persistencia local de misiones; sincronización de usuario requiere definir autenticación en Supabase.
+- El reconocimiento de voz usa la API disponible del sistema/navegador.
+- Push remoto requiere configurar APNs y Firebase.
+- Se incluye un icono maestro, PNG de 16 a 1024 px, `.ico`, `.icns`, perfil social y splash. Capacitor puede derivar los catálogos nativos desde `apps/mobile/resources/` mediante `npx @capacitor/assets generate`.
+
+## Estructura final
+
+```text
+NASA_CHONG_FLOTA/
+  apps/
+    web/
+      assets/icon/       # Máster, PNG, ICO, ICNS y perfil social
+    desktop/              # Electron para Windows/macOS
+    mobile/resources/     # Fuentes para @capacitor/assets
+  backend/                # Netlify Functions y SQL de Supabase
+  tests/                  # Validaciones locales
+  tools/build-icons.ps1   # Generador reproducible de recursos
+```
