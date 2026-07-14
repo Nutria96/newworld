@@ -1,0 +1,7 @@
+{
+  "appId": "com.chongseb.nasa",
+  "appName": "NASA de Chong",
+  "webDir": "../web",
+  "server": {"androidScheme": "https"},
+  "plugins": {"LocalNotifications": {"smallIcon": "ic_stat_chong", "iconColor": "#7fd0ff"}}
+}
