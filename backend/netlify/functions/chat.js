@@ -68,7 +68,7 @@ exports.handler = async event => {
   const response = await fetch(`${base}/chat/completions`, {
     method: "POST",
     headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
-    body: JSON.stringify({ model, messages: [{ role: "system", content: system }, { role: "user", content: question }], max_tokens: 1000 })
+    body: JSON.stringify({ model, messages: [{ role: "system", content: system }, { role: "user", content: question }], max_tokens: 450 })
   });
   if (!response.ok) {
     console.error("AI provider error", response.status);
