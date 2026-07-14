@@ -72,7 +72,11 @@ exports.handler = async event => {
   });
   if (!response.ok) {
     console.error("AI provider error", response.status);
-    return json(502, { error: "El tutor no pudo comunicarse con el proveedor de IA. Revisá la clave y el modelo configurados.", code: "AI_PROVIDER_ERROR" });
+    return json(502, {
+      error: `El proveedor de IA rechazó la solicitud (HTTP ${response.status}). Revisá la clave, el saldo y el modelo configurados.`,
+      code: "AI_PROVIDER_ERROR",
+      providerStatus: response.status
+    });
   }
   const data = await response.json();
   const answer = data.choices?.[0]?.message?.content?.trim();
