@@ -1,15 +1,245 @@
-/* Efecto de brillo en los botones al pasar el mouse */
-.btn-accion::before {
-    content: '';
-    position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(45deg, #FF3B30, #FF8C00, #FFD700, #00FF7F, #00BFFF, #8A2BE2, #FF1493);
-    background-size: 400% 400%;
-    border-radius: 50px;
-    z-index: -1;
-    animation: arcoiris 3s ease-in-out infinite;
-    filter: blur(4px);
-}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#080b19">
+  <meta name="description" content="NASA de Chong: tutor con IA, creatividad, audio y red comunitaria.">
+  <meta name="robots" content="index,follow">
+  <meta property="og:title" content="NASA de Chong · La Red Infinita">
+  <meta property="og:description" content="Tutor con IA, creatividad, audio y comunidad en una nave web ligera.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.chongseb.com/">
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%23080b19'/%3E%3Ccircle cx='600' cy='260' r='170' fill='%2327c9ff' stroke='%2302030a' stroke-width='20'/%3E%3Ctext x='600' y='290' text-anchor='middle' font-size='180'%3E🦦%3C/text%3E%3Ctext x='600' y='520' text-anchor='middle' fill='%23ffd45a' font-family='sans-serif' font-size='70' font-weight='900'%3ENASA DE CHONG%3C/text%3E%3C/svg%3E">
+  <link rel="canonical" href="https://www.chongseb.com/">
+  <link rel="alternate" hreflang="es" href="https://www.chongseb.com/?lang=es">
+  <link rel="alternate" hreflang="en" href="https://www.chongseb.com/?lang=en">
+  <link rel="alternate" hreflang="ja" href="https://www.chongseb.com/?lang=ja">
+  <link rel="alternate" hreflang="ko" href="https://www.chongseb.com/?lang=ko">
+  <link rel="alternate" hreflang="zh" href="https://www.chongseb.com/?lang=zh">
+  <link rel="alternate" hreflang="x-default" href="https://www.chongseb.com/">
+  <title>NASA de Chong · Web Lite</title>
+  <style>
+    /* ===== Base ligera: anime/cel-shading sin filtros costosos ===== */
+    :root{--bg:#080b19;--panel:#151b38;--ink:#02030a;--text:#f5f7ff;--muted:#abb6d4;--blue:#27c9ff;--purple:#9b65ff;--orange:#ff9138;--green:#58ef9a;--gold:#ffd45a}
+    *{box-sizing:border-box}html{color-scheme:dark;scroll-behavior:smooth}body{margin:0;min-height:100vh;background:linear-gradient(145deg,#080b19,#171039);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+    button,.button,input,select,textarea{font:inherit}button,.button{border:3px solid var(--ink);border-radius:8px;background:var(--blue);color:#06101a;padding:.62rem .82rem;font-weight:900;box-shadow:4px 4px 0 var(--ink);cursor:pointer;text-decoration:none}button:active,.button:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}button.secondary{background:var(--gold)}button.danger{background:#ff5678}input,select,textarea{width:100%;border:3px solid var(--ink);border-radius:8px;background:#090d20;color:#fff;padding:.7rem}textarea{resize:vertical}.hidden{display:none!important}
+    .top{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1rem;background:#080b19f2;border-bottom:3px solid var(--blue)}.brand{font-weight:1000;letter-spacing:.08em}.top-actions{display:flex;gap:.45rem}.layout{max-width:1120px;margin:auto;padding:1rem}.panel{border:4px solid var(--ink);border-radius:16px;background:var(--panel);box-shadow:7px 7px 0 var(--ink)}
+    .hero{display:grid;grid-template-columns:1fr minmax(230px,340px);align-items:center;gap:1rem;padding:clamp(1rem,4vw,2.8rem)}h1{margin:.25rem 0;font-size:clamp(2.2rem,7vw,5rem);line-height:.92;color:var(--blue);text-shadow:4px 4px 0 #421d70}.lead{color:var(--muted);font-size:1.1rem}.row{display:flex;gap:.55rem;align-items:center;flex-wrap:wrap}.row>*{flex:1}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem}.card{padding:1rem}.card h2,.drawer h2{margin:.1rem 0 .7rem;color:var(--gold)}.small{font-size:.82rem;color:var(--muted)}.status{min-height:1.4em;color:var(--green)}
+    /* ===== Mascota vectorial y cuatro estrellas: sólo transform CSS ===== */
+    .sphere{position:relative;width:min(76vw,320px);aspect-ratio:1;margin:auto;border:5px solid var(--ink);border-radius:50%;background:#172258;box-shadow:inset -16px -18px 0 #0d1235}.sphere svg{position:absolute;inset:12%;width:76%;height:76%}.orbit{position:absolute;inset:-8%;border:2px dashed #27c9ff88;border-radius:50%;animation:orbit 14s linear infinite}.star{position:absolute;color:var(--gold);font-size:1.7rem}.s1{left:45%;top:-13%}.s2{right:-11%;top:43%}.s3{left:45%;bottom:-13%}.s4{left:-11%;top:43%}@keyframes orbit{to{transform:rotate(360deg)}}
+    .plaque{position:relative;margin:1rem 0;padding:1rem;text-align:center;border:4px solid var(--gold);background:#090c1c;color:var(--gold);font-size:clamp(1rem,3vw,1.45rem);font-weight:1000;box-shadow:0 0 14px #ffd45a66,6px 6px 0 #000}
+    /* ===== Chat real: conserva IDs y endpoint; sólo cambia la cara ===== */
+    .chat{padding:0;overflow:hidden}.chat-head{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1rem;border-bottom:3px solid var(--ink);background:#202955}.messages{height:300px;overflow:auto;padding:.8rem;background:#080b19}.bubble{position:relative;isolation:isolate;max-width:86%;margin:.55rem 0;padding:.7rem 2.8rem .7rem .8rem;border:3px solid var(--ink);border-radius:14px}.bubble.user{margin-left:auto;background:var(--blue);color:#05101a}.bubble.bot{background:var(--orange);color:#180b02}.bubble.minato{animation:minato .14s ease-out}.bubble.minato::before{content:"";position:absolute;inset:-6px;background:#fff;z-index:-1;animation:flash .18s ease-out forwards}@keyframes minato{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}@keyframes flash{from{opacity:1}to{opacity:0}}.copy{position:absolute;top:4px;right:4px;padding:.22rem;border-width:2px;box-shadow:none;font-size:.75rem}.chat-form{display:flex;gap:.4rem;padding:.7rem;border-top:3px solid var(--ink)}.chat-form input{flex:1}.chat-form button{flex:0 0 auto}
+    /* ===== Drawer de herramientas opcionales ===== */
+    #toolsToggle{position:fixed;right:12px;top:70px;z-index:9999}.drawer{position:fixed;top:0;right:0;z-index:9000;width:min(430px,100vw);height:100dvh;overflow-y:auto;overscroll-behavior:contain;padding:4.4rem .8rem 5.5rem;background:#0c1027;border-left:4px solid var(--ink);transform:translateX(100%);transition:transform .2s ease}.drawer.open{transform:translateX(0)}.drawer-close{position:absolute;right:.7rem;top:.7rem}.tool{padding:.8rem;margin-bottom:.8rem;border:3px solid var(--ink);border-radius:12px;background:#171e3e}.tool label{display:block;margin:.5rem 0}.soundboard{display:grid;grid-template-columns:repeat(2,1fr);gap:.4rem}
+    /* ===== Nutria nadadora arrastrable ===== */
+    .swimmer{position:fixed;left:50%;top:65%;z-index:8500;width:72px;height:72px;display:grid;place-items:center;border:4px solid var(--ink);border-radius:50%;background:var(--blue);font-size:2.45rem;touch-action:none;user-select:none;cursor:grab;animation:swim 2s ease-in-out infinite}@keyframes swim{50%{transform:translateY(-5px) rotate(7deg)}}
+    /* ===== Ayuda P2P demostrativa claramente rotulada ===== */
+    .requests{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}.request{padding:.8rem;border:4px solid var(--green);border-radius:13px;background:#10172f;box-shadow:5px 5px 0 #000}.amount{color:var(--green);font-size:1.2rem;font-weight:1000}.badge{display:inline-block;padding:.2rem .45rem;border:2px solid #000;border-radius:6px;background:var(--gold);color:#161000;font-size:.74rem;font-weight:900}
+    /* ===== Canvas sólo activos al estar visibles ===== */
+    canvas{display:block;width:100%;max-width:100%;border:3px solid var(--ink);border-radius:8px;background:#030615}.ad{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:1rem;background:#03040ddd}.ad-box{width:min(620px,94vw);padding:1rem}.ad canvas{height:240px}.float{position:fixed;bottom:12px;z-index:8200}.volunteer{left:12px}.music{right:12px;background:var(--purple)}.contribution{padding:.55rem 0;border-bottom:1px solid #ffffff22}
+    .language-menu{position:fixed;right:12px;top:62px;z-index:9500;width:min(340px,calc(100vw - 24px));max-height:70vh;overflow:auto;padding:.6rem;border:4px solid #000;border-radius:12px;background:#111733}.language-list button{display:block;width:100%;margin:.25rem 0;text-align:left;background:#1d2955;color:#fff}.map-wrap{position:relative}.map-note{margin:.4rem 0;color:var(--green)}.vote-row{display:flex;gap:.35rem;margin-top:.35rem}.vote-row button{padding:.25rem .45rem;box-shadow:2px 2px 0 #000}.login-error{color:#ff7891;min-height:1.5em}.login-hint{margin:.35rem 0 0;color:var(--muted);font-size:.78rem}.premium{background:linear-gradient(90deg,var(--gold),var(--orange));color:#160b02}.welcome-actions{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+    dialog{max-width:min(500px,92vw);border:4px solid #000;border-radius:14px;background:#131936;color:#fff;box-shadow:7px 7px 0 #000}dialog::backdrop{background:#02030acc}
+
+    /* ===== Modo Galáctico: transformación visual sin tocar la lógica ===== */
+    :root{--bg:#020308;--panel:rgba(10,15,30,.46);--ink:#04101d;--text:#f3fbff;--muted:#a9c5dc;--blue:#38d9ff;--purple:#a76dff;--orange:#ff9b50;--green:#60ffbd;--gold:#ffe06b}
+    body{position:relative;isolation:isolate;background:radial-gradient(circle at 20% 20%,#03040f,#0a0015 90%);font-family:"Courier New",ui-monospace,monospace}
+    body::before,body::after{position:fixed;z-index:-2;inset:-12vh -8vw;content:"";pointer-events:none;background-image:radial-gradient(circle,#fff 0 1px,transparent 1.7px),radial-gradient(circle,#67dcff 0 1px,transparent 1.8px),radial-gradient(circle,#c692ff 0 1.3px,transparent 2px),radial-gradient(circle,#fff 0 .7px,transparent 1.4px);background-position:0 0,45px 75px,110px 25px,155px 130px;background-size:170px 170px,230px 230px,290px 290px,115px 115px;opacity:.62;animation:star-drift 95s linear infinite,twinkle 7s ease-in-out infinite alternate}
+    body::after{z-index:-1;inset:-20vh -15vw;background-size:310px 310px,390px 390px,470px 470px,210px 210px;filter:blur(.25px);opacity:.35;animation-duration:150s,11s;animation-direction:reverse,alternate}
+    @keyframes star-drift{to{transform:translate3d(-70px,120px,0)}}
+    @keyframes twinkle{0%,100%{opacity:.28}50%{opacity:.78}}
+
+    h1,h2,.brand,.chat-head strong{letter-spacing:.08em;text-shadow:0 0 8px currentColor,0 0 20px #38d9ff88}
+    .lead,.small,.status,.map-note{position:relative;text-shadow:0 0 8px #38d9ff44}
+    .top{background:linear-gradient(90deg,rgba(2,6,16,.86),rgba(16,8,40,.68));border-bottom:1px solid #38d9ffaa;box-shadow:0 8px 28px #000b,0 0 20px #38d9ff33;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+    .panel,.card,.tool,.chat,dialog,.language-menu,.request,.ad-box{background:linear-gradient(145deg,rgba(10,15,30,.46),rgba(24,12,48,.24));border:1px solid rgba(39,201,255,.3);box-shadow:inset 0 0 22px #38d9ff12,0 0 15px #38d9ff55,0 18px 45px #000b;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .tool:nth-of-type(even){border-color:var(--purple);box-shadow:inset 0 0 22px #a76dff18,0 0 15px #a76dff55,0 18px 45px #000a}
+    .hero{position:relative;overflow:hidden;background:radial-gradient(circle at 77% 48%,rgba(59,211,255,.13),transparent 35%),linear-gradient(145deg,rgba(8,19,39,.62),rgba(25,7,52,.36))}
+    .hero::after{position:absolute;right:-12%;bottom:-55%;width:56%;aspect-ratio:1;content:"";pointer-events:none;background:radial-gradient(circle,#9b65ff16,transparent 67%);border:1px solid #9b65ff22;border-radius:50%}
+
+    button,.button{position:relative;overflow:hidden;color:var(--green);text-shadow:0 0 8px var(--green);background:linear-gradient(90deg,rgba(96,255,189,.07),rgba(56,217,255,.08));border:2px solid var(--green);box-shadow:inset 0 0 12px #60ffbd18,0 0 12px #60ffbd55;transition:color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease}
+    button::before,.button::before{position:absolute;inset:0;content:"";pointer-events:none;background:linear-gradient(105deg,transparent 35%,#fff5 50%,transparent 65%);transform:translateX(-120%);transition:transform .35s ease}
+    button:hover,.button:hover,button:focus-visible,.button:focus-visible{color:#02110b;background:var(--green);box-shadow:0 0 12px var(--green),0 0 28px #60ffbd99;outline:none}
+    button:hover::before,.button:hover::before{transform:translateX(120%)}
+    button.secondary{color:var(--gold);text-shadow:0 0 8px var(--gold);background:#ffe06b0d;border-color:var(--gold);box-shadow:0 0 12px #ffe06b55}
+    button.secondary:hover{color:#171002;background:var(--gold);box-shadow:0 0 28px #ffe06baa}
+    button.danger{color:#ff6f91;text-shadow:0 0 8px #ff6f91;background:#ff56780c;border-color:#ff6f91}
+    .premium{color:var(--gold);background:linear-gradient(90deg,#ffb52a18,#a76dff20);border-color:var(--gold);box-shadow:0 0 18px #ffe06b77}
+    input,select,textarea{background:rgba(2,7,18,.72);border:1px solid #38d9ff99;box-shadow:inset 0 0 12px #38d9ff15;color:#eefdff}
+    input:focus,select:focus,textarea:focus{outline:1px solid var(--green);box-shadow:0 0 12px #60ffbd66}
+
+    .sphere{isolation:isolate;overflow:visible;background:radial-gradient(circle at 50% 50%,#dffcff 0 3%,#5be5ff 4% 8%,#4a169c 25%,#05091f 54%,#0b0120 67%,transparent 69%),conic-gradient(from 0deg,#38d9ff,#6727ff,#ff5db1,#38d9ff);border:2px solid #b8f5ff;box-shadow:inset 0 0 36px #fff9,inset 0 0 80px #5b22ff99,0 0 20px #38d9ff,0 0 58px #8c4dff99;animation:portal-pulse 5s ease-in-out infinite alternate}
+    .sphere::before{position:absolute;z-index:-1;inset:-9%;content:"";background:conic-gradient(from 0deg,transparent,#38d9ff 12%,transparent 23%,#a76dff 39%,transparent 52%,#ff78bd 70%,transparent 83%,#38d9ff);border-radius:50%;filter:blur(7px);animation:portal-spin 13s linear infinite}
+    .sphere::after{position:absolute;z-index:-1;inset:-17%;content:"";background:repeating-conic-gradient(from 0deg,#38d9ff44 0 2deg,transparent 2deg 12deg);border-radius:50%;mask:radial-gradient(circle,transparent 58%,#000 60% 64%,transparent 66%);animation:portal-spin 28s linear infinite reverse}
+    .sphere svg{z-index:2;filter:drop-shadow(0 0 5px #fff) drop-shadow(0 0 15px #9feeff) drop-shadow(0 0 26px #7d4dff)}
+    .orbit{z-index:3;border-color:#d9fbff;box-shadow:0 0 14px #38d9ff88,inset 0 0 18px #a76dff66;animation-duration:18s}
+    .star{color:#fff6ae;text-shadow:0 0 5px #fff,0 0 13px var(--gold),0 0 28px var(--orange);filter:drop-shadow(-12px 7px 6px #38d9ffaa);animation:star-trail 2.8s ease-in-out infinite alternate}
+    .s2{animation-delay:-.7s}.s3{animation-delay:-1.4s}.s4{animation-delay:-2.1s}
+    @keyframes star-trail{to{text-shadow:0 0 8px #fff,0 0 22px var(--gold),0 0 45px var(--orange);filter:drop-shadow(-24px 12px 9px #38d9ffdd)}}
+    @keyframes portal-spin{to{transform:rotate(360deg)}}
+    @keyframes portal-pulse{to{box-shadow:inset 0 0 42px #fffc,inset 0 0 95px #713cffbb,0 0 30px #38d9ff,0 0 78px #8c4dffbb}}
+
+    .chat{position:relative;border-radius:18px;clip-path:polygon(18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px),0 18px)}
+    .chat::before{position:absolute;z-index:4;inset:8px;content:"";pointer-events:none;border:1px solid #38d9ff44;clip-path:inherit}
+    .chat-head{background:linear-gradient(90deg,rgba(7,19,39,.9),rgba(48,13,74,.72));border-bottom:1px solid #38d9ffaa;box-shadow:0 8px 20px #0008}
+    .messages{background:linear-gradient(rgba(2,8,20,.76),rgba(5,2,18,.82)),repeating-linear-gradient(0deg,transparent 0 29px,#38d9ff0b 30px)}
+    .bubble{border-width:1px;box-shadow:0 0 12px #38d9ff33,0 8px 20px #0007;backdrop-filter:blur(5px)}
+    .bubble.user{color:#dffcff;background:linear-gradient(135deg,#075c7399,#12255dcc);border-color:#62eaff}
+    .bubble.bot{color:#fff5e9;background:linear-gradient(135deg,#67265caa,#4a2415cc);border-color:#ffac70}
+    .chat-form{background:rgba(2,7,18,.76);border-top:1px solid #38d9ff88}
+
+    .swimmer{background:radial-gradient(circle,#dffcff 0 8%,#38d9ff66 45%,#6d38ff66 70%,transparent 72%);border:1px solid #a6f3ff;box-shadow:0 0 10px #fff,0 0 24px var(--blue),0 0 48px #7548ff;animation:swim 3s ease-in-out infinite,energy-halo 4s ease-in-out infinite alternate}
+    @keyframes energy-halo{to{box-shadow:0 0 15px #fff,0 0 36px var(--blue),0 0 70px #7548ff}}
+    .plaque{position:relative;overflow:hidden;color:#fff0a6;text-shadow:0 0 8px #fff,0 0 18px var(--gold);background:radial-gradient(circle,#6b430f55,#090712 72%);border:1px solid var(--gold);box-shadow:0 0 16px #ffd45a88,inset 0 0 20px #ffd45a22;animation:supernova 4s ease-in-out infinite alternate}
+    @keyframes supernova{to{box-shadow:0 0 24px #fff6b0,0 0 52px #ffd45abb,inset 0 0 28px #ffd45a44}}
+    .badge{color:#140d00;background:var(--gold);border:1px solid #fff3a6;box-shadow:0 0 10px #ffd45a88}
+    .drawer{background:linear-gradient(180deg,rgba(2,8,20,.9),rgba(17,5,35,.86));border-left:1px solid #38d9ffaa;box-shadow:-12px 0 40px #000b,-2px 0 18px #38d9ff44;backdrop-filter:blur(16px)}
+    canvas{background:radial-gradient(circle at center,#071831,#02040c);border:1px solid #38d9ff99;box-shadow:inset 0 0 18px #38d9ff18,0 0 12px #38d9ff33}
+    @media(max-width:760px){.hero,.grid{grid-template-columns:1fr}.requests{grid-template-columns:1fr}.drawer{left:0;right:auto;width:100%;border-left:0;transform:translateX(-100%)}.drawer.open{transform:translateX(0)}body.drawer-open{overflow:hidden}.float{font-size:.75rem}.volunteer{max-width:56%}.swimmer{top:58%}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="brand">🦦 NASA DE CHONG</div><div class="top-actions"><button id="languageToggle" aria-expanded="false">🌍</button><button id="loginButton" type="button">Iniciar sesión</button><a class="button secondary" href="#support">Apoyar</a></div></header>
+  <button id="toolsToggle" aria-controls="tools" aria-expanded="false">☰ Herramientas</button>
+
+  <main class="layout">
+    <section class="hero panel">
+      <div><span class="small" data-i18n="eyebrow">MODO ALBAÑIL ASTRONAUTA</span><h1 data-i18n="title">LA RED INFINITA</h1><p class="lead" data-i18n="lead">Tutor con IA, creatividad, audio y comunidad en una nave ligera.</p><div class="row"><button id="openChat">Hablar con la Nutria</button><a class="button secondary" href="#requestsSection">Ver solicitudes</a></div></div>
+      <div class="sphere" aria-label="Nutria astronauta chibi en una esfera de cuatro estrellas"><div class="orbit"><span class="star s1">★</span><span class="star s2">★</span><span class="star s3">★</span><span class="star s4">★</span></div>
+        <svg viewBox="0 0 220 220" role="img" aria-label="Nutria astronauta"><g stroke="#02030a" stroke-width="7" stroke-linejoin="round"><ellipse cx="110" cy="128" rx="66" ry="68" fill="#eef5ff"/><circle cx="110" cy="89" r="57" fill="#b97345"/><circle cx="66" cy="54" r="18" fill="#b97345"/><circle cx="154" cy="54" r="18" fill="#b97345"/><ellipse cx="110" cy="108" rx="34" ry="27" fill="#efbd8d"/><circle cx="90" cy="83" r="7"/><circle cx="130" cy="83" r="7"/><path d="M104 103q6 8 12 0M110 104v12" fill="none"/><path d="M59 91q51-45 102 0v45q-51 28-102 0z" fill="none" stroke="#27c9ff"/><rect x="81" y="150" width="58" height="28" rx="7" fill="#9b65ff"/><circle cx="110" cy="164" r="7" fill="#58ef9a"/></g></svg>
+      </div>
+    </section>
+
+    <div class="plaque">👑 ⭐ Primera Donadora: La Mamá de Memo Alvaradwog</div>
+
+    <section class="grid">
+      <article class="card panel chat" id="chatPanel"><div class="chat-head"><div><strong>Chongoku IA · Chat real</strong><small id="chatStatus">Listo.</small></div><div class="row"><span>⚡ Minato</span><button id="clearChat" type="button" class="secondary">🗑️ Limpiar Chat</button></div></div><div id="messages" class="messages" aria-live="polite"></div><form id="chatForm" class="chat-form"><input id="message" maxlength="4000" autocomplete="off" placeholder="Decí qué necesitás…"><button type="submit">Enviar</button></form></article>
+      <article id="support" class="card panel"><h2>💳 Apoyar la misión</h2><p class="small">Checkout real de Stripe. Apple Pay aparece cuando el dispositivo, navegador y cuenta son compatibles.</p><p class="login-hint">Inicia sesión para guardar tus preferencias.</p><label>Monto MXN <input id="amount" type="number" min="10" max="100000" value="100"></label><div class="row"><button data-pay="unico">Stripe · una vez</button><button data-pay="mensual">Stripe · mensual</button></div><button id="premiumButton" class="premium" type="button">🚀 Premium · 15 MXN / 30 días</button><p id="payState" class="status" role="status"></p><div class="row"><select id="currency" aria-label="Moneda internacional"></select><button id="convert" class="secondary">Convertir</button></div><p id="conversion" class="small">La conversión externa sólo se solicita al pulsar Convertir.</p></article>
+    </section>
+
+    <section id="requestsSection" class="card panel" style="margin-top:1rem"><h2>🌍 Solicitudes de ejemplo</h2><p><span class="badge">DEMO · NO VERIFICADAS</span> Se reemplazarán por la API real cuando exista el endpoint de beneficiarios.</p><div id="requests" class="requests"></div></section>
+  </main>
+
+  <button class="float volunteer">🤝 ¿Ayudar a la misión?</button><button class="float music" id="musicButton">🎵 Música</button><div id="swimmer" class="swimmer" title="Arrastra o toca para abrir herramientas">🦦</div>
+
+  <aside id="tools" class="drawer" aria-hidden="true"><button class="drawer-close danger">✕ Cerrar</button>
+    <section class="tool"><h2>🎛 Efectos espaciales</h2><div class="soundboard"><button data-fx="portal">Portal</button><button data-fx="laser">Láser</button><button data-fx="boom">Explosión</button><button data-fx="echo">Eco</button><button data-fx="warp">Salto warp</button></div></section>
+    <section class="tool"><h2>🗺 Mapa Base NASA Chong</h2><div class="map-wrap"><canvas id="baseMap" width="380" height="210"></canvas></div><p id="mapStatus" class="map-note">Toca el marcador para ver sus coordenadas.</p></section>
+    <section class="tool"><h2>🎧 Remix Studio</h2><input id="audioFile" type="file" accept="audio/mpeg,audio/wav,audio/ogg"><label>Velocidad / pitch <input id="speed" type="range" min=".5" max="1.5" step=".05" value="1"></label><label>Eco ligero <input id="delay" type="range" min="0" max=".7" step=".05" value=".2"></label><label><input id="loop" type="checkbox"> Repetir pista</label><div class="row"><button id="playRemix">▶</button><button id="stopRemix">■</button><button id="downloadRemix">Descargar WAV</button></div><canvas id="visualizer" width="380" height="100"></canvas><p id="audioStatus" class="small"></p></section>
+    <section class="tool"><h2>🎮 Captura estrellas</h2><canvas id="game" width="380" height="190"></canvas><button id="startGame">Jugar 15 s</button><span id="gameScore">0</span></section>
+    <section class="tool"><h2>🧠 Moldea la IA</h2><p id="contributionCount"></p><form id="contributionForm"><textarea id="contributionText" maxlength="220" required placeholder="Punto importante"></textarea><input id="contributionCategory" maxlength="40" placeholder="Categoría opcional"><button>Guardar aporte</button></form><div id="contributionList"></div></section>
+  </aside>
+
+  <section id="languageMenu" class="language-menu hidden"><input id="languageSearch" placeholder="Buscar idioma"><div id="languageList" class="language-list"></div></section>
+  <dialog id="volunteerDialog"><p>Cualquier ayuda es bienvenida. ¡Contáctanos para ser parte de la red!</p><div class="row"><button id="sendVolunteer">Abrir correo</button><button id="closeVolunteer" class="secondary">Cerrar</button></div></dialog>
+  <dialog id="welcomeDialog"><h2>🦦 Bienvenido a bordo</h2><p>¿Querés compartir tu ubicación para adaptar la experiencia? Se guardará únicamente en este dispositivo.</p><div class="welcome-actions"><button id="allowLocation">Compartir ubicación</button><button id="skipLocation" class="secondary">Ahora no</button></div><p id="locationStatus" class="status"></p></dialog>
+  <dialog id="locationDialog"><h2>📍 Base NASA Chong</h2><p id="coordinatesText"></p><button id="closeLocation" class="secondary">Cerrar</button></dialog>
+  <dialog id="loginDialog"><form id="loginForm"><h2>👤 Inicio de sesión local</h2><label>Usuario<input id="loginUser" autocomplete="username" required></label><label>Contraseña<input id="loginPass" type="password" autocomplete="current-password" required></label><p class="small">Demo local: usuario <strong>nutria</strong>, contraseña <strong>space</strong>.</p><p id="loginError" class="login-error" role="alert"></p><div class="row"><button type="submit">Entrar</button><button id="closeLogin" type="button" class="secondary">Cancelar</button></div></form></dialog>
+  <div id="ad" class="ad hidden"><div class="ad-box panel"><h2>Transmisión galáctica</h2><canvas id="adCanvas" width="600" height="240"></canvas><button id="skipAd" class="danger">⏭ Saltar anuncio</button></div></div>
+
+  <script>
+    'use strict';
+    /* ===== Utilidades y almacenamiento local pequeño ===== */
+    const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+    const storage={get:(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},set:(k,v)=>localStorage.setItem(k,JSON.stringify(v))};
+
+    /* ===== Idioma automático y selector universal ISO 639-1 ===== */
+    const translations={es:{eyebrow:'MODO ALBAÑIL ASTRONAUTA',title:'LA RED INFINITA',lead:'Tutor con IA, creatividad, audio y comunidad en una nave ligera.'},en:{eyebrow:'ASTRONAUT BUILDER MODE',title:'THE INFINITE NETWORK',lead:'AI tutoring, creativity, audio and community in a lightweight ship.'},ja:{eyebrow:'宇宙建築モード',title:'無限ネットワーク',lead:'軽量な宇宙船でAI学習、創作、音楽、コミュニティ。'},ko:{eyebrow:'우주 건축 모드',title:'무한 네트워크',lead:'가벼운 우주선에서 AI 학습, 창작, 오디오와 커뮤니티.'},zh:{eyebrow:'宇航建造模式',title:'无限网络',lead:'轻量飞船中的 AI 学习、创作、音频与社区。'}};
+    function setLanguage(code,manual=false){const c=translations[code]?code:'en';document.documentElement.lang=c;$$('[data-i18n]').forEach(el=>el.textContent=translations[c][el.dataset.i18n]);storage.set(manual?'manual_language':'detected_language',c)}
+    const detected=(navigator.languages?.[0]||navigator.language||'en').slice(0,2).toLowerCase();setLanguage(storage.get('manual_language',null)||storage.get('detected_language',null)||detected);
+    const languages=[['aa','Afar'],['af','Afrikaans'],['am','Amharic'],['ar','Arabic'],['az','Azerbaijani'],['be','Belarusian'],['bg','Bulgarian'],['bn','Bengali'],['bs','Bosnian'],['ca','Catalan'],['cs','Czech'],['cy','Welsh'],['da','Danish'],['de','German'],['el','Greek'],['en','English'],['eo','Esperanto'],['es','Español'],['et','Estonian'],['eu','Basque'],['fa','Persian'],['fi','Finnish'],['fr','French'],['ga','Irish'],['gl','Galician'],['gu','Gujarati'],['he','Hebrew'],['hi','Hindi'],['hr','Croatian'],['hu','Hungarian'],['hy','Armenian'],['id','Indonesian'],['is','Icelandic'],['it','Italian'],['ja','日本語'],['ka','Georgian'],['kk','Kazakh'],['km','Khmer'],['kn','Kannada'],['ko','한국어'],['ku','Kurdish'],['la','Latin'],['lt','Lithuanian'],['lv','Latvian'],['mk','Macedonian'],['ml','Malayalam'],['mn','Mongolian'],['mr','Marathi'],['ms','Malay'],['mt','Maltese'],['my','Burmese'],['ne','Nepali'],['nl','Dutch'],['no','Norwegian'],['pa','Punjabi'],['pl','Polish'],['pt','Portuguese'],['ro','Romanian'],['ru','Russian'],['sk','Slovak'],['sl','Slovenian'],['so','Somali'],['sq','Albanian'],['sr','Serbian'],['sv','Swedish'],['sw','Swahili'],['ta','Tamil'],['te','Telugu'],['th','Thai'],['tr','Turkish'],['uk','Ukrainian'],['ur','Urdu'],['uz','Uzbek'],['vi','Vietnamese'],['zh','中文'],['zu','Zulu']];
+    const allLanguageCodes='aa ab ae af ak am an ar as av ay az ba be bg bh bi bm bn bo br bs ca ce ch co cr cs cu cv cy da de dv dz ee el en eo es et eu fa ff fi fj fo fr fy ga gd gl gn gu gv ha he hi ho hr ht hu hy hz ia id ie ig ii ik io is it iu ja jv ka kg ki kj kk kl km kn ko kr ks ku kv kw ky la lb lg li ln lo lt lu lv mg mh mi mk ml mn mr ms mt my na nb nd ne ng nl nn no nr nv ny oc oj om or os pa pi pl ps pt qu rm rn ro ru rw sa sc sd se sg si sk sl sm sn so sq sr ss st su sv sw ta te tg th ti tk tl tn to tr ts tt tw ty ug uk ur uz ve vi vo wa wo xh yi yo za zh zu'.split(' '),knownLanguages=new Set(languages.map(item=>item[0])),languageNames=typeof Intl.DisplayNames==='function'?new Intl.DisplayNames([document.documentElement.lang||'es'],{type:'language'}):null;allLanguageCodes.forEach(code=>{if(!knownLanguages.has(code))languages.push([code,languageNames?.of(code)||code.toUpperCase()])});languages.sort((a,b)=>a[1].localeCompare(b[1]));
+    function renderLanguages(q=''){const box=$('#languageList');box.textContent='';languages.filter(x=>x.join(' ').toLowerCase().includes(q.toLowerCase())).forEach(([code,name])=>{const b=document.createElement('button');b.textContent=code.toUpperCase()+' · '+name;b.onclick=()=>{setLanguage(code,true);$('#languageMenu').classList.add('hidden')};box.append(b)})}renderLanguages();$('#languageSearch').oninput=e=>renderLanguages(e.target.value);$('#languageToggle').onclick=()=>$('#languageMenu').classList.toggle('hidden');
+
+    /* ===== Bienvenida, geolocalización opcional y login local simulado ===== */
+    if(!storage.get('welcome_seen',false))$('#welcomeDialog').showModal();
+    function finishWelcome(){storage.set('welcome_seen',true);$('#welcomeDialog').close()}
+    $('#skipLocation').onclick=finishWelcome;
+    $('#allowLocation').onclick=()=>{const out=$('#locationStatus');if(!navigator.geolocation){out.textContent='La geolocalización no está disponible.';return finishWelcome()}out.textContent='Solicitando permiso…';navigator.geolocation.getCurrentPosition(position=>{storage.set('visitor_location',{lat:position.coords.latitude,lng:position.coords.longitude,at:Date.now()});out.textContent='Ubicación guardada sólo en este dispositivo.';setTimeout(finishWelcome,500)},error=>{out.textContent=error.code===1?'Permiso rechazado; podés continuar normalmente.':'No fue posible obtener la ubicación.';setTimeout(finishWelcome,700)},{enableHighAccuracy:false,timeout:7000,maximumAge:3600000})};
+    const loginButton=$('#loginButton'),loginDialog=$('#loginDialog');
+    function updateLogin(){const active=storage.get('logged_in',false),name=storage.get('logged_user','');loginButton.textContent=active?'👤 '+name:'Iniciar sesión';$$('.login-hint').forEach(el=>el.hidden=active)}
+    loginButton.onclick=()=>{if(storage.get('logged_in',false)){if(confirm('¿Cerrar sesión?')){localStorage.removeItem('logged_in');localStorage.removeItem('logged_user');updateLogin()}return}$('#loginError').textContent='';loginDialog.showModal();$('#loginUser').focus()};
+    $('#closeLogin').onclick=()=>loginDialog.close();
+    $('#loginForm').onsubmit=e=>{e.preventDefault();const user=$('#loginUser').value.trim(),pass=$('#loginPass').value;if(user.toLowerCase()==='nutria'&&pass==='space'){storage.set('logged_in',true);storage.set('logged_user',user);e.target.reset();loginDialog.close();updateLogin()}else $('#loginError').textContent='Usuario o contraseña incorrectos.'};updateLogin();
+
+    /* ===== Chat real: conserva /api/chat y los IDs públicos existentes ===== */
+    const messages=$('#messages'),form=$('#chatForm'),field=$('#message'),chatStatus=$('#chatStatus'),clearChat=$('#clearChat');
+    const CHAT_HISTORY_KEY='chat_history';
+    const WELCOME_MESSAGE='Modo Sabio conectado... ¿Qué querés aprender?';
+    let chatHistory=[];
+    async function copyText(text){try{await navigator.clipboard.writeText(text)}catch{const a=document.createElement('textarea');a.value=text;document.body.append(a);a.select();document.execCommand('copy');a.remove()}}
+    function bubble(text,kind,minato=false){const article=document.createElement('article'),copy=document.createElement('button');article.className='bubble '+kind+(minato?' minato':'');article.append(document.createTextNode(text));copy.type='button';copy.className='copy';copy.textContent='📋';copy.onclick=()=>copyText(text);article.append(copy);messages.append(article);messages.scrollTop=messages.scrollHeight}
+
+    /* Historial visual independiente del sessionId usado por el backend. */
+    function saveChatHistory(){storage.set(CHAT_HISTORY_KEY,chatHistory)}
+    function addChatMessage(text,role,minato=false){
+      const message={role:role==='user'?'user':'bot',text:String(text),minato:Boolean(minato)};
+      chatHistory.push(message);
+      saveChatHistory();
+      bubble(message.text,message.role,message.minato);
+    }
+    function loadChatHistory(){
+      const saved=storage.get(CHAT_HISTORY_KEY,[]);
+      chatHistory=Array.isArray(saved)?saved.filter(item=>item&&['user','bot'].includes(item.role)&&typeof item.text==='string').map(item=>({role:item.role,text:item.text,minato:Boolean(item.minato)})):[];
+      messages.textContent='';
+      if(!chatHistory.length)addChatMessage(WELCOME_MESSAGE,'bot',false);
+      else chatHistory.forEach(item=>bubble(item.text,item.role,item.minato));
+      messages.scrollTop=messages.scrollHeight;
+    }
+    clearChat.addEventListener('click',()=>{
+      chatHistory=[];
+      localStorage.removeItem(CHAT_HISTORY_KEY);
+      messages.textContent='';
+      addChatMessage(WELCOME_MESSAGE,'bot',false);
+      chatStatus.textContent='Listo.';
+    });
+    loadChatHistory();
+
+    form.addEventListener('submit',async e=>{e.preventDefault();const text=field.value.trim();if(!text)return;field.value='';addChatMessage(text,'user');chatStatus.textContent='Pensando…';try{const response=await fetch('/api/chat',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({mensaje:text,sessionId:localStorage.chongSession||(localStorage.chongSession=crypto.randomUUID()),requireSources:false})}),data=await response.json();if(!response.ok)throw Error(data.error||'El tutor no pudo responder.');setTimeout(()=>addChatMessage(data.respuesta||data.reply||'Respuesta vacía.','bot',true),0);chatStatus.textContent='Listo.'}catch(error){addChatMessage(error.message||'No pude conectar con el tutor.','bot',true);chatStatus.textContent='Revisá la configuración.'}});
+
+    /* ===== Pagos reales: no se modifica el backend ===== */
+    async function openCheckout(monto,tipo){const out=$('#payState');if(monto<10||monto>100000){out.textContent='Monto inválido.';return}out.textContent='Preparando checkout seguro…';try{const response=await fetch('/api/stripe-checkout',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({monto,tipo})}),data=await response.json();if(!response.ok)throw Error(data.error||'Stripe no disponible.');location.assign(data.url)}catch(error){out.textContent=error.message}}
+    $$('[data-pay]').forEach(button=>button.addEventListener('click',()=>openCheckout(Number($('#amount').value),button.dataset.pay)));
+    $('#premiumButton').onclick=()=>openCheckout(15,'mensual');
+    const currencyCodes='AED AFN ALL AMD ANG AOA ARS AUD AWG AZN BAM BBD BDT BGN BHD BIF BMD BND BOB BOV BRL BSD BTN BWP BYN BZD CAD CDF CHE CHF CHW CLF CLP CNY COP COU CRC CUC CUP CVE CZK DJF DKK DOP DZD EGP ERN ETB EUR FJD FKP GBP GEL GHS GIP GMD GNF GTQ GYD HKD HNL HRK HTG HUF IDR ILS INR IQD IRR ISK JMD JOD JPY KES KGS KHR KMF KPW KRW KWD KYD KZT LAK LBP LKR LRD LSL LYD MAD MDL MGA MKD MMK MNT MOP MRU MUR MVR MWK MXN MXV MYR MZN NAD NGN NIO NOK NPR NZD OMR PAB PEN PGK PHP PKR PLN PYG QAR RON RSD RUB RWF SAR SBD SCR SDG SEK SGD SHP SLE SLL SOS SRD SSP STN SVC SYP SZL THB TJS TMT TND TOP TRY TTD TWD TZS UAH UGX USD USN UYI UYU UYW UZS VED VES VND VUV WST XAF XAG XAU XBA XBB XBC XBD XCD XCG XDR XOF XPD XPF XPT XSU XTS XUA XXX YER ZAR ZMW ZWL'.split(' ');const currency=$('#currency');currencyCodes.forEach(code=>{const option=document.createElement('option');option.value=option.textContent=code;option.selected=code==='MXN';currency.append(option)});
+    $('#convert').onclick=async()=>{const target=$('#currency').value;if(target==='MXN')return $('#conversion').textContent='1 MXN = 1 MXN';$('#conversion').textContent='Consultando sólo por solicitud…';try{const r=await fetch('https://api.frankfurter.app/latest?from=MXN&to='+encodeURIComponent(target)),d=await r.json();$('#conversion').textContent='1 MXN ≈ '+d.rates[target]+' '+target}catch{$('#conversion').textContent='Conversión no disponible; el checkout continúa en MXN.'}};
+
+    /* ===== Drawer móvil robusto y widget arrastrable ===== */
+    function setTools(open){$('#tools').classList.toggle('open',open);$('#tools').setAttribute('aria-hidden',String(!open));$('#toolsToggle').setAttribute('aria-expanded',String(open));document.body.classList.toggle('drawer-open',open);if(open)startMap();else stopMap()}const toolsToggle=$('#toolsToggle');toolsToggle.onclick=()=>setTools(true);toolsToggle.addEventListener('touchstart',e=>{e.preventDefault();setTools(true)},{passive:false});$('.drawer-close').onclick=()=>setTools(false);$('#openChat').onclick=()=>$('#chatPanel').scrollIntoView({block:'center'});
+    const swimmer=$('#swimmer');let drag=null,moved=false;const pos=storage.get('swimmer_position',null);if(pos){swimmer.style.left=pos.x+'px';swimmer.style.top=pos.y+'px'}const point=e=>{const p=e.touches?e.touches[0]:e;return{x:p.clientX,y:p.clientY}};function dragStart(e){const p=point(e),r=swimmer.getBoundingClientRect();drag={dx:p.x-r.left,dy:p.y-r.top};moved=false}function dragMove(e){if(!drag)return;const p=point(e);moved=true;swimmer.style.left=Math.max(0,Math.min(innerWidth-72,p.x-drag.dx))+'px';swimmer.style.top=Math.max(62,Math.min(innerHeight-72,p.y-drag.dy))+'px';e.preventDefault()}function dragEnd(){if(!drag)return;storage.set('swimmer_position',{x:parseInt(swimmer.style.left)||0,y:parseInt(swimmer.style.top)||0});drag=null;if(!moved)setTools(true)}function keepSwimmerVisible(){const size=72,r=swimmer.getBoundingClientRect(),outside=r.left<0||r.left>innerWidth-size||r.top<0||r.top>innerHeight-size;if(!outside)return;const x=Math.max(0,(innerWidth-size)/2),y=Math.max(62,Math.min(innerHeight-size,innerHeight*.65));swimmer.style.left=x+'px';swimmer.style.top=y+'px';storage.set('swimmer_position',{x:Math.round(x),y:Math.round(y)})}swimmer.addEventListener('mousedown',dragStart);addEventListener('mousemove',dragMove);addEventListener('mouseup',dragEnd);swimmer.addEventListener('touchstart',dragStart,{passive:true});addEventListener('touchmove',dragMove,{passive:false});addEventListener('touchend',dragEnd);addEventListener('resize',keepSwimmerVisible);addEventListener('orientationchange',()=>setTimeout(keepSwimmerVisible,300));keepSwimmerVisible();
+
+    /* ===== Mapa Canvas: sólo anima mientras el drawer está visible ===== */
+    const NASA_CHONG_BASE={lat:19.432608,lng:-99.133209},baseMap=$('#baseMap'),mapX=baseMap.getContext('2d');let mapFrame=0,mapStart=0;
+    function drawMap(time=0){if($('#tools').getAttribute('aria-hidden')==='true')return;mapX.fillStyle='#030615';mapX.fillRect(0,0,baseMap.width,baseMap.height);mapX.strokeStyle='#27c9ff55';mapX.lineWidth=1;for(let x=0;x<baseMap.width;x+=38){mapX.beginPath();mapX.moveTo(x,0);mapX.lineTo(x,baseMap.height);mapX.stroke()}for(let y=0;y<baseMap.height;y+=35){mapX.beginPath();mapX.moveTo(0,y);mapX.lineTo(baseMap.width,y);mapX.stroke()}const pulse=8+Math.abs(Math.sin(time/350))*7;mapX.fillStyle='#ffd45a';mapX.beginPath();mapX.arc(baseMap.width/2,baseMap.height/2,pulse,0,Math.PI*2);mapX.fill();mapX.strokeStyle='#ff9138';mapX.lineWidth=3;mapX.stroke();mapFrame=requestAnimationFrame(drawMap)}
+    function startMap(){if(!mapFrame){mapStart=performance.now();mapFrame=requestAnimationFrame(drawMap)}}function stopMap(){cancelAnimationFrame(mapFrame);mapFrame=0}baseMap.onclick=e=>{const r=baseMap.getBoundingClientRect(),x=(e.clientX-r.left)*baseMap.width/r.width,y=(e.clientY-r.top)*baseMap.height/r.height;if(Math.hypot(x-baseMap.width/2,y-baseMap.height/2)<38){$('#coordinatesText').textContent=`Latitud ${NASA_CHONG_BASE.lat}, longitud ${NASA_CHONG_BASE.lng}`;$('#locationDialog').showModal()}};$('#closeLocation').onclick=()=>$('#locationDialog').close();
+
+    /* ===== P2P: mock visual explícito; nunca inicia cobros ===== */
+    const mockRequests=[{nombre:'Maria G.',pais:'Venezuela',monto:'$45 USD',historia:'Necesito medicinas para mi hijo.'},{nombre:'Ahmed K.',pais:'Siria',monto:'$120 USD',historia:'Mi familia perdió su hogar.'},{nombre:'Lin W.',pais:'Vietnam',monto:'$60 USD',historia:'Ayuda para mi pequeña granja.'}];mockRequests.forEach(r=>{const card=document.createElement('article');card.className='request';card.innerHTML='<strong>🌍 '+r.nombre+' · '+r.pais+'</strong><p class="amount">'+r.monto+'</p><p>'+r.historia+'</p><span class="badge">EJEMPLO FICTICIO</span>';const b=document.createElement('button');b.textContent='Más información';b.onclick=()=>alert('Esta solicitud es únicamente una demostración y no acepta pagos.');card.append(b);$('#requests').append(card)});
+
+    /* ===== Contacto voluntario ===== */
+    $('.volunteer').onclick=()=>$('#volunteerDialog').showModal();$('#closeVolunteer').onclick=()=>$('#volunteerDialog').close();$('#sendVolunteer').onclick=()=>{location.href='mailto:volunteer@chongseb.com?subject=Quiero ayudar a la misión'};
+
+    /* ===== Audio generativo y efectos con nodos baratos ===== */
+    let audioContext=null,pad=[],musicOn=false;function context(){return audioContext||(audioContext=new(window.AudioContext||window.webkitAudioContext)())}$('#musicButton').onclick=async()=>{const c=context();await c.resume();if(musicOn){pad.forEach(o=>o.stop());pad=[];musicOn=false;$('#musicButton').textContent='🎵 Música';return}const gain=c.createGain();gain.gain.value=.025;gain.connect(c.destination);[110,164.81,220].forEach((f,i)=>{const o=c.createOscillator();o.type=i?'sine':'triangle';o.frequency.value=f;o.connect(gain);o.start();pad.push(o)});musicOn=true;$('#musicButton').textContent='🔇 Silenciar'};$$('[data-fx]').forEach(b=>b.onclick=()=>{const c=context(),o=c.createOscillator(),g=c.createGain(),now=c.currentTime,map={portal:[220,880,'sine'],laser:[900,90,'square'],boom:[90,35,'sawtooth'],echo:[330,165,'sine'],warp:[70,1200,'triangle']},v=map[b.dataset.fx];o.type=v[2];o.frequency.setValueAtTime(v[0],now);o.frequency.exponentialRampToValueAtTime(v[1],now+.5);g.gain.setValueAtTime(.1,now);g.gain.exponentialRampToValueAtTime(.001,now+.6);o.connect(g).connect(c.destination);o.start();o.stop(now+.62)});
+
+    /* ===== Remix: visualizador sólo mientras reproduce ===== */
+    let audioBuffer=null,source=null,analyser=null,waveFrame=0;$('#audioFile').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{audioBuffer=await context().decodeAudioData(await file.arrayBuffer());$('#audioStatus').textContent='Pista lista: '+file.name}catch{$('#audioStatus').textContent='Formato no compatible.'}};function stopRemix(){if(source){try{source.stop()}catch{}source=null}cancelAnimationFrame(waveFrame)}function drawWave(){if(!source||$('#tools').getAttribute('aria-hidden')==='true')return;const data=new Uint8Array(analyser.frequencyBinCount),canvas=$('#visualizer'),x=canvas.getContext('2d');analyser.getByteTimeDomainData(data);x.fillStyle='#030615';x.fillRect(0,0,canvas.width,canvas.height);x.strokeStyle='#58ef9a';x.beginPath();data.forEach((v,i)=>{const px=i*canvas.width/data.length,py=v*canvas.height/256;i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke();waveFrame=requestAnimationFrame(drawWave)}$('#playRemix').onclick=()=>{if(!audioBuffer)return $('#audioStatus').textContent='Cargá un audio primero.';stopRemix();const c=context(),delay=c.createDelay(.8),feedback=c.createGain();delay.delayTime.value=Number($('#delay').value);feedback.gain.value=.25;delay.connect(feedback).connect(delay);source=c.createBufferSource();source.buffer=audioBuffer;source.playbackRate.value=Number($('#speed').value);source.loop=$('#loop').checked;analyser=c.createAnalyser();analyser.fftSize=256;source.connect(analyser).connect(c.destination);source.connect(delay).connect(c.destination);source.start();drawWave()};$('#stopRemix').onclick=stopRemix;
+    function encodeWav(buffer){const channels=buffer.numberOfChannels,length=buffer.length*channels*2,out=new ArrayBuffer(44+length),v=new DataView(out),write=(o,s)=>[...s].forEach((c,i)=>v.setUint8(o+i,c.charCodeAt(0)));write(0,'RIFF');v.setUint32(4,36+length,true);write(8,'WAVEfmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,channels,true);v.setUint32(24,buffer.sampleRate,true);v.setUint32(28,buffer.sampleRate*channels*2,true);v.setUint16(32,channels*2,true);v.setUint16(34,16,true);write(36,'data');v.setUint32(40,length,true);let offset=44;for(let i=0;i<buffer.length;i++)for(let c=0;c<channels;c++){const s=Math.max(-1,Math.min(1,buffer.getChannelData(c)[i]));v.setInt16(offset,s<0?s*32768:s*32767,true);offset+=2}return new Blob([out],{type:'audio/wav'})}
+    $('#downloadRemix').onclick=async()=>{if(!audioBuffer)return $('#audioStatus').textContent='Cargá un audio primero.';const rate=Number($('#speed').value),offline=new OfflineAudioContext(audioBuffer.numberOfChannels,Math.ceil(audioBuffer.length/rate),audioBuffer.sampleRate),s=offline.createBufferSource(),d=offline.createDelay(.8),g=offline.createGain();s.buffer=audioBuffer;s.playbackRate.value=rate;d.delayTime.value=Number($('#delay').value);g.gain.value=.25;s.connect(offline.destination);s.connect(d).connect(g).connect(offline.destination);s.start();const rendered=await offline.startRendering(),a=document.createElement('a');a.href=URL.createObjectURL(encodeWav(rendered));a.download='nasa-chong-remix.wav';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+
+    /* ===== Juego a 30 FPS y detenido si la pestaña no está visible ===== */
+    const game=$('#game'),gx=game.getContext('2d');let playing=false,score=0,star={x:100,y:90},endTime=0,lastFrame=0;function gameLoop(t){if(!playing||document.hidden)return;if(t-lastFrame<33)return requestAnimationFrame(gameLoop);lastFrame=t;gx.fillStyle='#030615';gx.fillRect(0,0,game.width,game.height);gx.fillStyle='#ffd45a';gx.font='32px sans-serif';gx.fillText('★',star.x,star.y);if(t>=endTime){playing=false;const bonus=Math.min(score*60000,900000);storage.set('ad_free_until',Date.now()+bonus);scheduleAd();$('#gameScore').textContent='Puntos: '+score+' · '+Math.round(bonus/60000)+' min sin anuncios';return}requestAnimationFrame(gameLoop)}game.onclick=e=>{if(!playing)return;const r=game.getBoundingClientRect(),x=(e.clientX-r.left)*game.width/r.width,y=(e.clientY-r.top)*game.height/r.height;if(Math.hypot(x-star.x,y-star.y)<44){score++;star={x:25+Math.random()*(game.width-50),y:35+Math.random()*(game.height-55)}}};$('#startGame').onclick=()=>{score=0;playing=true;endTime=performance.now()+15000;requestAnimationFrame(gameLoop)};document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;stopRemix();stopMap()}else if($('#tools').getAttribute('aria-hidden')==='false')startMap()});
+
+    /* ===== Aportes, votos y evolución local de la IA ===== */
+    let contributions=storage.get('chong_contributions',[]).map(item=>({...item,id:item.id||crypto.randomUUID(),up:Number(item.up)||0,down:Number(item.down)||0})),communityAIResponses=storage.get('community_ai_responses',[]);storage.set('chong_contributions',contributions);
+    function evolveCommunityAI(){if(!contributions.length||contributions.length%5)return;communityAIResponses=[...contributions].sort((a,b)=>(b.up-b.down)-(a.up-a.down)).slice(0,Math.min(5,contributions.length)).map(item=>item.text);storage.set('community_ai_responses',communityAIResponses)}
+    function voteContribution(id,direction){const item=contributions.find(entry=>entry.id===id);if(!item)return;item[direction]=(item[direction]||0)+1;storage.set('chong_contributions',contributions);evolveCommunityAI();renderContributions()}
+    function renderContributions(){$('#contributionCount').textContent='🧠 '+contributions.length+' aportes locales · '+communityAIResponses.length+' frases evolucionadas';const box=$('#contributionList');box.textContent='';contributions.slice(-12).reverse().forEach(item=>{const d=document.createElement('div'),text=document.createElement('div'),votes=document.createElement('div'),up=document.createElement('button'),down=document.createElement('button');d.className='contribution';text.textContent=item.text+' · '+(item.category||'general');votes.className='vote-row';up.textContent='👍 '+(item.up||0);down.textContent='👎 '+(item.down||0);up.onclick=()=>voteContribution(item.id,'up');down.onclick=()=>voteContribution(item.id,'down');votes.append(up,down);d.append(text,votes);box.append(d)})}renderContributions();$('#contributionForm').onsubmit=e=>{e.preventDefault();const text=$('#contributionText').value.trim();if(!text)return;contributions.push({id:crypto.randomUUID(),text,category:$('#contributionCategory').value.trim(),up:0,down:0,at:Date.now()});contributions=contributions.slice(-100);storage.set('chong_contributions',contributions);evolveCommunityAI();e.target.reset();renderContributions()};
+
+    /* ===== Anuncio procedural: un dibujo por aparición, sin bucle ===== */
+    function showAd(){if(Date.now()<storage.get('ad_free_until',0))return scheduleAd();const canvas=$('#adCanvas'),x=canvas.getContext('2d');$('#ad').classList.remove('hidden');x.fillStyle='#030615';x.fillRect(0,0,canvas.width,canvas.height);for(let i=0;i<26;i++){x.fillStyle=['#27c9ff','#9b65ff','#ff9138','#58ef9a'][i%4];x.beginPath();x.arc(Math.random()*canvas.width,Math.random()*canvas.height,4+Math.random()*20,0,Math.PI*2);x.fill()}}let adTimer=0;function scheduleAd(){clearTimeout(adTimer);const wait=Math.max(1000,storage.get('ad_free_until',0)-Date.now(),900000);adTimer=setTimeout(showAd,wait)}scheduleAd();$('#skipAd').onclick=()=>{$('#ad').classList.add('hidden');scheduleAd()};
+  </script>
+</body>
+</html>
