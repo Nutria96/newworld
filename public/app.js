@@ -1,5 +1,5 @@
 // Canales públicos de donación: modifica únicamente estas dos variables.
-const DONATION_PHONE = "+521234567890";
+const DONATION_PHONE = "+528331594714";
 const TELEGRAM_USERNAME = "NASAChongNutriaBot";
 const cfg = window.CHONG_CONFIG || {};
 const api = (cfg.API_BASE_URL || "").replace(/\/$/, "");
@@ -30,7 +30,8 @@ function setChatClosed(closed){chat.classList.toggle("closed",closed);chatLaunch
 chatToggle.addEventListener("click",()=>setChatClosed(true));
 chatLauncher.addEventListener("click",()=>setChatClosed(false));
 const donationToggle=$("#donationToggle"),donationMenu=$("#donationMenu");
-$("#donateWhatsApp").href=`https://wa.me/${DONATION_PHONE.replace(/\D/g,"")}?text=${encodeURIComponent("Quiero donar a www.chongseb.com")}`;
+const whatsappLink=$("#donateWhatsApp"),cleanDonationPhone=DONATION_PHONE.replace(/\D/g,"");
+if(cleanDonationPhone){whatsappLink.href=`https://wa.me/${cleanDonationPhone}?text=${encodeURIComponent("Quiero donar a www.chongseb.com")}`;}else{whatsappLink.removeAttribute("href");whatsappLink.setAttribute("aria-disabled","true");whatsappLink.textContent="📱 WhatsApp pendiente";whatsappLink.addEventListener("click",event=>event.preventDefault());}
 $("#donateTelegram").href=`https://t.me/${TELEGRAM_USERNAME.replace(/^@/,"").trim()}?start=donacion`;
 function setDonations(open){donationMenu.classList.toggle("open",open);donationMenu.setAttribute("aria-hidden",String(!open));donationToggle.setAttribute("aria-expanded",String(open));}
 donationToggle.addEventListener("click",()=>setDonations(!donationMenu.classList.contains("open")));
