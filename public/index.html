@@ -1,6 +1,53 @@
 <!doctype html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#070b18"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://chongseb.com; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'"><title>NASA de Chong — Modo Sabio</title><link rel="icon" href="assets/icon/icon-32.png"><link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="identity.css"><link rel="stylesheet" href="multimodal.css"></head>
-<body><div class="stars" aria-hidden="true"></div><header><div class="brand"><img src="assets/icon/icon-64.png" alt=""><div><small>NASA DE CHONG</small><h1>Centro de mando orbital</h1></div></div><button id="mode" class="glass">🌌 Interestelar</button></header>
-<main><section class="hero glass"><div><span class="status">● MODO SABIO ACTIVO</span><h2>Solo llámame nutria</h2><p>Habla, crea programas, mezcla audio y trabaja con tus archivos desde un solo centro de mando.</p></div><div class="orb"><img src="assets/icon/icon-512.png" alt="Nutria astronauta"></div></section><section class="grid"><article class="glass card"><h3>Misiones</h3><div id="missions"></div><p class="score">🍺 Caguamas: <strong id="score">0</strong></p><button id="notify">Recordarme cada día</button></article><article class="glass card"><h3>Apoyar la misión</h3><label>Monto MXN <input id="amount" type="number" min="10" max="100000" value="100"></label><button data-pay="unico">Stripe — una vez</button><button data-pay="mensual">Stripe — mensual</button><a class="paypal" href="https://paypal.me/nutria9999" target="_blank" rel="noopener noreferrer">PayPal</a><p id="payState" role="status"></p></article></section></main>
-<aside class="chat glass" aria-label="Chat con Chongoku"><div class="chatHead"><div><strong>Chongoku IA · Modo Sabio</strong><small id="chatStatus">Listo. Hablá claro.</small></div><button id="chatToggle" aria-label="Minimizar chat">—</button></div><div class="chatTools"><button type="button" id="voice" aria-label="Hablar" title="Hablar">🎙️</button><button type="button" id="fileButton" aria-label="Subir archivos" title="Subir archivos">📤</button><button type="button" id="wiseButton" aria-pressed="true" title="Memoria local">🧙</button><button type="button" id="clearMemory" title="Borrar memoria local">🧹</button><button type="button" id="nitroButton" aria-pressed="false" title="Modo Nitro">🔥</button><button type="button" id="sourcesButton" aria-pressed="false" title="Exigir fuentes verificables">🧠</button><span id="fileName"></span></div><input id="fileInput" type="file" multiple accept="audio/*,image/*,.pdf,.txt,.md,.csv,.json" hidden><section id="mixerPanel" class="mixerPanel" hidden><strong>Mezclador de dos pistas</strong><span id="mixNames"></span><label>Pista A <input id="gainA" type="range" min="0" max="1" step="0.05" value="0.5"></label><label>Pista B <input id="gainB" type="range" min="0" max="1" step="0.05" value="0.5"></label><div><button type="button" id="mixPlay">▶ Mezclar</button><button type="button" id="mixStop">■ Parar</button></div></section><div id="messages" class="messages" aria-live="polite"><p class="bot">Modo Sabio activado. La memoria queda solo en este dispositivo y podés borrarla con 🧹.</p></div><form id="chatForm"><input id="message" maxlength="4000" autocomplete="off" placeholder="Decí qué necesitás…"><button type="submit" aria-label="Enviar">🚀</button></form></aside>
-<div class="donationDock" id="donationDock"><div class="donationMenu" id="donationMenu" aria-hidden="true"><a class="donationLink whatsapp" id="donateWhatsApp" target="_blank" rel="noopener noreferrer">📱 Donar por WhatsApp</a><a class="donationLink telegram" id="donateTelegram" target="_blank" rel="noopener noreferrer">✈️ Donar por Telegram</a></div><button class="donationToggle" id="donationToggle" aria-expanded="false" aria-controls="donationMenu">💳 Donaciones</button></div><button type="button" id="chatLauncher" class="chatLauncher" aria-label="Abrir chat Modo Sabio" aria-expanded="false">🦦</button><link rel="stylesheet" href="galactic.css"><script src="config.js"></script><script src="app.js"></script></body></html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070b18">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'">
+  <title>NASA de Chong — Modo Sabio</title>
+  <link rel="icon" href="assets/icon/icon-32.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="identity.css">
+  <link rel="stylesheet" href="multimodal.css">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <header>
+    <div class="brand"><img src="assets/icon/icon-64.png" alt=""><div><small>NASA DE CHONG</small><h1>Centro de mando orbital</h1></div></div>
+    <button id="mode" class="glass">🌌 Interestelar</button>
+  </header>
+  <main>
+    <section class="hero glass"><div><span class="status">● MODO SABIO ACTIVO</span><h2>Solo llámame nutria</h2><p>Habla, crea programas, mezcla audio y trabaja con tus archivos desde un solo centro de mando.</p></div><div class="orb"><img src="assets/icon/icon-512.png" alt="Nutria astronauta"></div></section>
+    <section class="grid">
+      <article class="glass card"><h3>Misiones</h3><div id="missions"></div><p class="score">🍺 Caguamas: <strong id="score">0</strong></p><button id="notify">Recordarme cada día</button></article>
+      <article class="glass card"><h3>Apoyar la misión</h3><label>Monto MXN <input id="amount" type="number" min="10" max="100000" value="100"></label><button data-pay="unico">Stripe — una vez</button><button data-pay="mensual">Stripe — mensual</button><a class="paypal" href="https://paypal.me/nutria9999" target="_blank" rel="noopener noreferrer">PayPal</a><p id="payState" role="status"></p></article>
+    </section>
+  </main>
+  <aside class="chat glass" aria-label="Chat con Chongoku">
+    <div class="chatHead"><div><strong>Chongoku IA · Modo Sabio</strong><small id="chatStatus">Listo. Hablá claro.</small></div><button id="chatToggle" aria-label="Minimizar chat">—</button></div>
+    <div class="chatTools"><button type="button" id="voice" aria-label="Hablar" title="Hablar">🎙️</button><button type="button" id="fileButton" aria-label="Subir archivos" title="Subir archivos">📤</button><button type="button" id="wiseButton" aria-pressed="true" title="Memoria local">🧙</button><button type="button" id="clearMemory" title="Borrar memoria local">🧹</button><button type="button" id="nitroButton" aria-pressed="false" title="Modo Nitro">🔥</button><button type="button" id="sourcesButton" aria-pressed="false" title="Exigir fuentes verificables">🧠</button><span id="fileName"></span></div>
+    <input id="fileInput" type="file" multiple accept="audio/*,image/*,.pdf,.txt,.md,.csv,.json" hidden>
+    <section id="mixerPanel" class="mixerPanel" hidden><strong>Mezclador de dos pistas</strong><span id="mixNames"></span><label>Pista A <input id="gainA" type="range" min="0" max="1" step="0.05" value="0.5"></label><label>Pista B <input id="gainB" type="range" min="0" max="1" step="0.05" value="0.5"></label><div><button type="button" id="mixPlay">▶ Mezclar</button><button type="button" id="mixStop">■ Parar</button></div></section>
+    <div id="messages" class="messages" aria-live="polite"><p class="bot">Modo Sabio activado. La memoria queda solo en este dispositivo y podés borrarla con 🧹.</p></div>
+    <form id="chatForm"><input id="message" maxlength="4000" autocomplete="off" placeholder="Decí qué necesitás…"><button type="submit" aria-label="Enviar">🚀</button></form>
+  </aside>
+  <div class="uploadDock" id="uploadDock"><button type="button" class="uploadToggle" id="uploadToggle" aria-expanded="false" aria-controls="uploadPortal">🌌 Subir archivo pesado</button></div>
+  <section class="uploadPortal glass" id="uploadPortal" role="dialog" aria-modal="false" aria-labelledby="uploadTitle" aria-hidden="true">
+    <div class="uploadHead"><div><small>TRANSFERENCIA ORBITAL</small><h2 id="uploadTitle">Portal de archivos pesados</h2></div><button type="button" id="uploadClose" aria-label="Cerrar portal">×</button></div>
+    <div class="dropGalaxy" id="dropGalaxy" role="button" tabindex="0" aria-controls="heavyFileInput"><span class="portalCore" aria-hidden="true"></span><strong>Arrastra tu archivo al portal</strong><span>o pulsa para elegirlo · 8K · varios GB</span></div>
+    <input id="heavyFileInput" type="file" hidden>
+    <div class="uploadInfo"><strong id="heavyFileName">Ningún archivo seleccionado</strong><span id="heavyFileSize">—</span></div>
+    <div class="uploadProgress" role="progressbar" aria-label="Progreso de subida" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="uploadProgressBar"></span></div>
+    <p id="uploadProgressText" role="status">Esperando archivo.</p>
+    <div class="uploadActions"><button type="button" id="uploadStart" disabled>▶ Iniciar</button><button type="button" id="uploadPause" disabled>⏸ Pausar</button><button type="button" id="uploadCancel" disabled>■ Cancelar</button></div>
+    <p class="uploadNote">La transferencia se divide en chunks de 8 MB. El servidor debe implementar inicio, recepción de chunks y finalización multipart.</p>
+  </section>
+  <div class="donationDock" id="donationDock"><div class="donationMenu" id="donationMenu" aria-hidden="true"><a class="donationLink whatsapp" id="donateWhatsApp" target="_blank" rel="noopener noreferrer">📱 Donar por WhatsApp</a><a class="donationLink telegram" id="donateTelegram" target="_blank" rel="noopener noreferrer">✈️ Donar por Telegram</a></div><button class="donationToggle" id="donationToggle" aria-expanded="false" aria-controls="donationMenu">💳 Donaciones</button></div>
+  <button type="button" id="chatLauncher" class="chatLauncher" aria-label="Abrir chat Modo Sabio" aria-expanded="false">🦦</button>
+  <link rel="stylesheet" href="galactic.css">
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
