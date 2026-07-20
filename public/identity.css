@@ -1,0 +1,1 @@
+.brand{display:flex;align-items:center;gap:12px}.brand img{width:58px;height:58px;border-radius:16px;box-shadow:0 0 24px #7fd0ff66}.orb{width:210px;height:210px;background:none;overflow:hidden;flex:0 0 auto}.orb img{width:100%;height:100%;object-fit:cover}@media(max-width:720px){.orb{width:110px;height:110px}.brand img{width:44px;height:44px}}

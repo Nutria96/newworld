@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#070b18">
+  <meta name="description" content="NASA de Chong: red de ayuda mutua global, creatividad, tecnología y donaciones directas con estilo anime espacial.">
+  <meta name="keywords" content="ayuda mutua, donaciones, anime, nutria astronauta, filantropía, pagos internacionales">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NASA de Chong — La Red Infinita">
+  <meta property="og:description" content="Ayuda directa entre personas con comisión de plataforma 0.">
+  <meta property="og:url" content="https://www.chongseb.com/">
+  <meta property="og:image" content="https://www.chongseb.com/assets/icon/social-profile-1024.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://www.chongseb.com/">
+  <!-- Google Search Console: añade aquí la meta google-site-verification que te entregue Google. -->
+  <!-- AdSense: define el ID ca-pub-... en ADSENSE_CLIENT_ID dentro de app.js después de la aprobación. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://maps.googleapis.com https://maps.gstatic.com https://api.exchangerate-api.com https://pagead2.googlesyndication.com; img-src 'self' data: https://maps.googleapis.com https://maps.gstatic.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; style-src 'self' 'unsafe-inline'; script-src 'self' https://maps.googleapis.com https://pagead2.googlesyndication.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; frame-ancestors 'none'">
+  <title>NASA de Chong — Modo Sabio</title>
+  <link rel="icon" href="assets/icon/icon-32.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="identity.css">
+  <link rel="stylesheet" href="multimodal.css">
+  <link rel="stylesheet" href="language-welcome.css">
+</head>
+<body>
+  <div class="welcomeOverlay" id="welcomeOverlay" aria-hidden="true">
+    <section class="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <h2 id="welcomeTitle">🌍 Where are you visiting us from?</h2>
+      <div class="legendaryGlobe" aria-hidden="true"><canvas id="welcomeCanvas" width="320" height="320"></canvas><span class="orbitStar starOne">★</span><span class="orbitStar starTwo">★</span><span class="orbitStar starThree">★</span><span class="orbitStar starFour">★</span></div>
+      <p id="welcomeLocation" role="status">Connecting to the stellar system…</p>
+      <button type="button" id="welcomeEnter">Enter the Network!</button>
+      <small id="welcomePrivacy">Your precise location is never stored.</small>
+    </section>
+  </div>
+  <div class="languageSwitcher" id="languageSwitcher">
+    <button type="button" class="languageGlobe" id="languageGlobe" aria-expanded="false" aria-controls="languageMenu" aria-label="Choose language">🌍</button>
+    <section class="languageMenu" id="languageMenu" aria-hidden="true" aria-label="Language selector">
+      <label for="languageSearch" class="srOnly">Search language</label>
+      <input id="languageSearch" type="search" autocomplete="off" placeholder="Search language…">
+      <div class="languageList" id="languageList" role="listbox" aria-label="Languages"></div>
+      <p class="languageFallback" id="languageFallback">Interface translations: English, Español, 日本語, 한국어, 中文. Other choices use English text safely.</p>
+    </section>
+  </div>
+  <div class="stars" aria-hidden="true"></div>
+  <header>
+    <div class="brand"><img src="assets/icon/icon-64.png" alt=""><div><small>NASA DE CHONG</small><h1>Centro de mando orbital</h1></div></div>
+    <button id="mode" class="glass">🌌 Interestelar</button>
+  </header>
+  <main>
+    <section class="hero glass"><div><span class="status">● MODO SABIO ACTIVO</span><h2>Solo llámame nutria</h2><p>Habla, crea programas, mezcla audio y trabaja con tus archivos desde un solo centro de mando.</p></div><div class="orb"><img src="assets/icon/icon-512.png" alt="Nutria astronauta"></div></section>
+    <section class="grid">
+      <article class="glass card"><h3>Misiones</h3><div id="missions"></div><p class="score">🍺 Caguamas: <strong id="score">0</strong></p><button id="notify">Recordarme cada día</button></article>
+      <article class="glass card"><h3>Apoyar la misión</h3><label>Monto MXN <input id="amount" type="number" min="10" max="100000" value="100"></label><button data-pay="unico">Stripe — una vez</button><button data-pay="mensual">Stripe — mensual</button><a class="paypal" href="https://paypal.me/nutria9999" target="_blank" rel="noopener noreferrer">PayPal</a><p id="payState" role="status"></p></article>
+    </section>
+    <section class="contactMap glass" aria-labelledby="contactTitle"><div class="mapCopy"><small>COORDENADAS DE LA BASE</small><h2 id="contactTitle">Contacto galáctico</h2><p>Ubica la base de la NASA de Chong. La coordenada se configura en <code>app.js</code>.</p></div><div id="googleMap" class="animeMap" role="region" aria-label="Mapa de ubicación de NASA de Chong"><p id="mapStatus" role="status">Mapa pendiente de configuración.</p></div></section>
+    <section class="mutualNetwork glass" id="mutualNetwork" aria-labelledby="mutualTitle"><div class="energyFlow" id="energyFlow" aria-hidden="true"></div><div class="mutualIntro"><small>FLUJO DE AYUDA P2P</small><h2 id="mutualTitle">La Red Infinita</h2><p class="zeroFee">100% del dinero se dirige a la persona que lo necesita. El fundador cobra comisión de plataforma: 0.</p><p class="processorNote">El procesador de pagos puede descontar sus propias tarifas. Cada receptor debe estar verificado antes de recibir fondos.</p><button type="button" id="requestHelpOpen">🫶 Pedir ayuda</button></div><div><h3>Solicitudes activas verificadas</h3><div class="helpFeed" id="helpFeed" aria-live="polite"><p>Conectando con la red de ayuda…</p></div></div></section>
+  </main>
+  <aside class="chat glass" aria-label="Chat con Chongoku">
+    <div class="chatHead"><div><strong>Chongoku IA · Modo Sabio</strong><small id="chatStatus">Listo. Hablá claro.</small></div><button id="chatToggle" aria-label="Minimizar chat">—</button></div>
+    <div class="chatTools"><button type="button" id="voice" aria-label="Hablar" title="Hablar">🎙️</button><button type="button" id="fileButton" aria-label="Subir archivos" title="Subir archivos">📤</button><button type="button" id="wiseButton" aria-pressed="true" title="Memoria local">🧙</button><button type="button" id="clearMemory" title="Borrar memoria local">🧹</button><button type="button" id="nitroButton" aria-pressed="false" title="Modo Nitro">🔥</button><button type="button" id="sourcesButton" aria-pressed="false" title="Exigir fuentes verificables">🧠</button><span id="fileName"></span></div>
+    <input id="fileInput" type="file" multiple accept="audio/*,image/*,.pdf,.txt,.md,.csv,.json" hidden>
+    <section id="mixerPanel" class="mixerPanel" hidden><strong>Mezclador de dos pistas</strong><span id="mixNames"></span><label>Pista A <input id="gainA" type="range" min="0" max="1" step="0.05" value="0.5"></label><label>Pista B <input id="gainB" type="range" min="0" max="1" step="0.05" value="0.5"></label><div><button type="button" id="mixPlay">▶ Mezclar</button><button type="button" id="mixStop">■ Parar</button></div></section>
+    <div id="messages" class="messages" aria-live="polite"><p class="bot">Modo Sabio activado. La memoria queda solo en este dispositivo y podés borrarla con 🧹.</p></div>
+    <form id="chatForm"><input id="message" maxlength="4000" autocomplete="off" placeholder="Decí qué necesitás…"><button type="submit" aria-label="Enviar">🚀</button></form>
+  </aside>
+  <div class="uploadDock" id="uploadDock"><button type="button" class="uploadToggle" id="uploadToggle" aria-expanded="false" aria-controls="uploadPortal">🌌 Subir archivo pesado</button></div>
+  <section class="uploadPortal glass" id="uploadPortal" role="dialog" aria-modal="false" aria-labelledby="uploadTitle" aria-hidden="true">
+    <div class="uploadHead"><div><small>TRANSFERENCIA ORBITAL</small><h2 id="uploadTitle">Portal de archivos pesados</h2></div><button type="button" id="uploadClose" aria-label="Cerrar portal">×</button></div>
+    <div class="dropGalaxy" id="dropGalaxy" role="button" tabindex="0" aria-controls="heavyFileInput"><span class="portalCore" aria-hidden="true"></span><strong>Arrastra tu archivo al portal</strong><span>o pulsa para elegirlo · 8K · varios GB</span></div>
+    <input id="heavyFileInput" type="file" hidden>
+    <div class="uploadInfo"><strong id="heavyFileName">Ningún archivo seleccionado</strong><span id="heavyFileSize">—</span></div>
+    <div class="uploadProgress" role="progressbar" aria-label="Progreso de subida" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="uploadProgressBar"></span></div>
+    <p id="uploadProgressText" role="status">Esperando archivo.</p>
+    <div class="uploadActions"><button type="button" id="uploadStart" disabled>▶ Iniciar</button><button type="button" id="uploadPause" disabled>⏸ Pausar</button><button type="button" id="uploadCancel" disabled>■ Cancelar</button></div>
+    <p class="uploadNote">La transferencia se divide en chunks de 8 MB. El servidor debe implementar inicio, recepción de chunks y finalización multipart.</p>
+  </section>
+  <section class="helpRequestModal glass" id="helpRequestModal" role="dialog" aria-modal="false" aria-labelledby="helpRequestTitle" aria-hidden="true"><div class="helpHead"><div><small>SOLICITUD P2P</small><h2 id="helpRequestTitle">Pedir ayuda</h2></div><button type="button" id="requestHelpClose" aria-label="Cerrar solicitud">×</button></div><form id="helpRequestForm"><label>Nombre o alias (opcional)<input id="helpName" maxlength="100" autocomplete="name"></label><label>País<input id="helpCountry" maxlength="80" required autocomplete="country-name"></label><div class="helpAmountRow"><label>Monto necesario<input id="helpAmount" type="number" min="1" step="0.01" required></label><label>Moneda<select id="helpCurrency" required></select></label></div><label>Cuenta tu historia<textarea id="helpStory" minlength="20" maxlength="1200" required></textarea></label><button type="submit">🚀 Enviar solicitud</button><p id="helpRequestStatus" role="status"></p></form></section>
+  <section class="internationalPay glass" id="internationalPay" role="dialog" aria-modal="false" aria-labelledby="internationalPayTitle" aria-hidden="true"><div class="payHead"><div><small>GLOBAL CHECKOUT</small><h2 id="internationalPayTitle" data-i18n="title">Pago internacional</h2></div><button type="button" id="internationalPayClose" aria-label="Cerrar pagos">×</button></div><label class="currencyField"><span data-i18n="currency">Moneda</span><select id="internationalCurrency"><option value="MXN">MXN — Peso mexicano</option><option value="USD">USD — US dollar</option><option value="EUR">EUR — Euro</option><option value="GBP">GBP — Pound sterling</option><option value="CAD">CAD — Canadian dollar</option></select></label><p class="globalPrice"><span data-i18n="amount">Importe</span> <strong id="internationalAmount">—</strong></p><button type="button" class="applePayButton" id="applePayButton"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.8 12.8c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.2-2-3.9-2-1.7-.2-3.2 1-4.1 1-.9 0-2.3-1-3.7-1-1.9 0-3.6 1.1-4.6 2.8-2 3.4-.5 8.5 1.4 11.2.9 1.4 2.1 2.9 3.6 2.8 1.4-.1 2-1 3.7-1s2.2 1 3.8 1c1.6 0 2.6-1.4 3.5-2.8 1.1-1.6 1.5-3.2 1.5-3.3-.1 0-3.4-1.3-3.4-4.8ZM14 5.2c.8-1 1.3-2.3 1.2-3.6-1.2.1-2.6.8-3.4 1.7-.7.8-1.4 2.2-1.2 3.5 1.3.1 2.6-.6 3.4-1.6Z"/></svg><span data-i18n="apple">Pagar con Apple Pay</span></button><button type="button" class="cardPayButton" id="cardPayButton"><span aria-hidden="true">💳</span><span data-i18n="card">Pagar con tarjeta internacional</span></button><p class="payStatus" id="internationalPayStatus" role="status">Listo.</p><div class="payLoader" id="payLoader" aria-hidden="true"><span></span><span></span><span></span></div><p class="payLegal" data-i18n="secure">La confirmación final ocurre en la hoja segura del navegador.</p></section>
+  <div class="donationDock" id="donationDock"><div class="donationMenu" id="donationMenu" aria-hidden="true"><a class="donationLink whatsapp" id="donateWhatsApp" target="_blank" rel="noopener noreferrer">📱 Donar por WhatsApp</a><a class="donationLink telegram" id="donateTelegram" target="_blank" rel="noopener noreferrer">✈️ Donar por Telegram</a><button type="button" class="donationLink globalPay" id="internationalPayOpen">🌍 Pagos internacionales</button></div><button class="donationToggle" id="donationToggle" aria-expanded="false" aria-controls="donationMenu">💳 Donaciones</button></div>
+  <button type="button" id="chatLauncher" class="chatLauncher" aria-label="Abrir chat Modo Sabio" aria-expanded="false">🦦</button>
+  <link rel="stylesheet" href="galactic.css">
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
