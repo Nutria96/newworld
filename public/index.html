@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -23,8 +23,27 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="identity.css">
   <link rel="stylesheet" href="multimodal.css">
+  <link rel="stylesheet" href="language-welcome.css">
 </head>
 <body>
+  <div class="welcomeOverlay" id="welcomeOverlay" aria-hidden="true">
+    <section class="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+      <h2 id="welcomeTitle">🌍 Where are you visiting us from?</h2>
+      <div class="legendaryGlobe" aria-hidden="true"><canvas id="welcomeCanvas" width="320" height="320"></canvas><span class="orbitStar starOne">★</span><span class="orbitStar starTwo">★</span><span class="orbitStar starThree">★</span><span class="orbitStar starFour">★</span></div>
+      <p id="welcomeLocation" role="status">Connecting to the stellar system…</p>
+      <button type="button" id="welcomeEnter">Enter the Network!</button>
+      <small id="welcomePrivacy">Your precise location is never stored.</small>
+    </section>
+  </div>
+  <div class="languageSwitcher" id="languageSwitcher">
+    <button type="button" class="languageGlobe" id="languageGlobe" aria-expanded="false" aria-controls="languageMenu" aria-label="Choose language">🌍</button>
+    <section class="languageMenu" id="languageMenu" aria-hidden="true" aria-label="Language selector">
+      <label for="languageSearch" class="srOnly">Search language</label>
+      <input id="languageSearch" type="search" autocomplete="off" placeholder="Search language…">
+      <div class="languageList" id="languageList" role="listbox" aria-label="Languages"></div>
+      <p class="languageFallback" id="languageFallback">Interface translations: English, Español, 日本語, 한국어, 中文. Other choices use English text safely.</p>
+    </section>
+  </div>
   <div class="stars" aria-hidden="true"></div>
   <header>
     <div class="brand"><img src="assets/icon/icon-64.png" alt=""><div><small>NASA DE CHONG</small><h1>Centro de mando orbital</h1></div></div>
