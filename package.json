@@ -11,9 +11,5 @@
     "mobile:sync": "npm --workspace apps/mobile run sync",
     "android": "npm --workspace apps/mobile run android",
     "ios": "npm --workspace apps/mobile run ios"
-  },
-  "dependencies": {
-    "@supabase/supabase-js": "^2.52.0",
-    "stripe": "^18.3.0"
   }
 }
