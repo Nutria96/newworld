@@ -18,11 +18,13 @@
   "dependencies": {
     "@google-cloud/storage": "^7.16.0",
     "@simplewebauthn/server": "^13.2.2",
+    "@supabase/supabase-js": "^2.110.8",
     "axios": "^1.11.0",
     "bcryptjs": "^3.0.2",
     "discord.js": "^14.22.1",
     "dotenv": "^17.2.1",
-    "node-cron": "^4.2.1"
+    "node-cron": "^4.2.1",
+    "stripe": "^22.3.2"
   },
   "engines": {
     "node": ">=20"
