@@ -18,11 +18,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
       - name: Install Netlify CLI
         run: npm install --global netlify-cli
 
-      # Add NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID under:
-      # GitHub repository > Settings > Secrets and variables > Actions.
       - name: Deploy production
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
