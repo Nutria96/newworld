@@ -1,4 +1,10 @@
 .env
+.monitoreo_cfe_state.json
+fallas_cfe.txt
+presion_agua.txt
+wifi_scan.txt
+trazado_red.txt
 node_modules/
 .netlify/
+.master-bot/
 npm-debug.log*
