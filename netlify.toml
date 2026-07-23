@@ -1,3 +1,4 @@
+# Production publishes the repository root; dashboard settings mirror this file.
 [build]
   command = "echo No build needed"
   functions = "netlify/functions"
