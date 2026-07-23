@@ -4,7 +4,7 @@
   publish = "."
 
 [functions]
-  node_bundler = "esbuild"
+  node_bundler = "zisi"
 
 [[redirects]]
   from = "/apoyar"
