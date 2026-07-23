@@ -1,12 +1,30 @@
 {
-  "name": "nasa-chong-flota",
+  "name": "chongseb-publisher",
   "version": "1.0.0",
   "private": true,
+  "description": "Publicador oficial y auditable de CHONGSEB",
+  "main": "publisher.js",
   "scripts": {
-    "test": "node --test tests/*.test.js"
+    "start": "node setup-chongseb.js",
+    "publish:list": "node publisher.js --list",
+    "publish:schedule": "node publisher.js --schedule",
+    "publish:dry": "node publisher.js --run-due --dry-run",
+    "discord:setup": "node setup-discord.js --rebuild",
+    "discord:exclusive": "node setup-exclusive.js",
+    "discord:multiverso": "node setup-multiverso.js",
+    "discord:chongseb": "node setup-chongseb.js",
+    "discord:rebuild": "node setup-chongseb.js --rebuild"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.57.4",
-    "stripe": "^18.5.0"
+    "@google-cloud/storage": "^7.16.0",
+    "@simplewebauthn/server": "^13.2.2",
+    "axios": "^1.11.0",
+    "bcryptjs": "^3.0.2",
+    "discord.js": "^14.22.1",
+    "dotenv": "^17.2.1",
+    "node-cron": "^4.2.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

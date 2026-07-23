@@ -1,0 +1,1 @@
+#adultLogin{display:grid;gap:10px;margin:18px auto;width:min(380px,100%)}#adultLogin input{padding:11px;border:1px solid #00ffff;border-radius:999px;background:#050713;color:#fff}#adultLogin button{padding:10px;border:1px solid #ff00ff;border-radius:999px;background:transparent;color:#fff;cursor:pointer}#loginStatus{min-height:1.4em;color:#ffcc00}

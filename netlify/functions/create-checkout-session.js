@@ -1,47 +1,101 @@
-const Stripe = require("stripe");
+const crypto = require("node:crypto");
+const { createPayPalOrder } = require("./create-paypal-checkout");
+const {
+  buildPurchase,
+  siteUrl,
+  savePending,
+} = require("./_lib/paymentCatalog");
+const { json, method } = require("./_lib/http");
+
+async function mercadoPagoPreference(purchase) {
+  const token = process.env.MERCADOPAGO_ACCESS_TOKEN;
+  if (!token) throw new Error("Mercado Pago no configurado");
+  const externalReference = `mp_${purchase.reference}`;
+  await savePending(externalReference, "mercadopago", purchase);
+  const root = siteUrl();
+  const response = await fetch(
+    "https://api.mercadopago.com/checkout/preferences",
+    {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+        "x-idempotency-key": crypto.randomUUID(),
+      },
+      body: JSON.stringify({
+        items: [
+          {
+            id: purchase.serviceKey,
+            title: purchase.name,
+            quantity: 1,
+            currency_id: "MXN",
+            unit_price: purchase.amount / 100,
+          },
+        ],
+        external_reference: externalReference,
+        metadata: {
+          service_key: purchase.serviceKey,
+          referral_code: purchase.referralCode,
+          user_id: purchase.userId,
+          discount_percent: purchase.discount,
+          public_donor: purchase.publicDonor,
+          donor_name: purchase.donorName,
+        },
+        back_urls: {
+          success: `${root}/?payment=success&provider=mercadopago`,
+          pending: `${root}/?payment=pending&provider=mercadopago`,
+          failure: `${root}/?payment=failed&provider=mercadopago`,
+        },
+        auto_return: "approved",
+        notification_url: `${root}/.netlify/functions/mercadopago-webhook`,
+        statement_descriptor: "CHONGSEB",
+      }),
+    },
+  );
+  const data = await response.json();
+  if (!response.ok || (!data.init_point && !data.sandbox_init_point)) {
+    throw new Error("Mercado Pago rechazó la preferencia");
+  }
+  return {
+    provider: "mercadopago",
+    init_point: data.init_point || data.sandbox_init_point,
+    preference_id: data.id,
+    amount: purchase.amount,
+    discount: purchase.discount,
+  };
+}
 
 exports.handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: JSON.stringify({ error: "Method Not Allowed" }) };
-  }
-
-  const secret = process.env.STRIPE_SECRET_KEY;
-  if (!secret) {
-    return { statusCode: 503, body: JSON.stringify({ error: "Stripe no configurado" }) };
-  }
-
+  const bad = method(event, "POST");
+  if (bad) return bad;
+  let body;
   try {
-    const body = JSON.parse(event.body || "{}");
-    const amount = Math.max(100, Math.min(10000000, Number(body.amount) || 1500));
-    const origin =
-      event.headers.origin ||
-      `https://${event.headers.host || "www.chongseb.com"}`;
-    const stripe = new Stripe(secret);
-    const session = await stripe.checkout.sessions.create({
-      mode: "payment",
-      line_items: [
-        {
-          quantity: 1,
-          price_data: {
-            currency: "mxn",
-            unit_amount: Math.round(amount),
-            product_data: { name: "Donación a CHONGSEB" },
-          },
-        },
-      ],
-      success_url: `${origin}/?donation=success`,
-      cancel_url: `${origin}/?donation=cancelled`,
-    });
-
-    return {
-      statusCode: 200,
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ url: session.url }),
-    };
+    body = JSON.parse(event.body || "{}");
   } catch {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "No fue posible iniciar Stripe Checkout" }),
-    };
+    return json(400, { error: "JSON inválido" });
+  }
+  let purchase;
+  try {
+    purchase = await buildPurchase(body);
+  } catch (error) {
+    return json(error.statusCode || 400, { error: error.message });
+  }
+  try {
+    return json(200, await mercadoPagoPreference(purchase));
+  } catch (mercadoPagoError) {
+    try {
+      const paypal = await createPayPalOrder(purchase);
+      return json(200, {
+        ...paypal,
+        fallback: true,
+        fallback_reason: "Mercado Pago no disponible",
+      });
+    } catch {
+      return json(502, {
+        error: "Mercado Pago y PayPal no están disponibles",
+      });
+    }
   }
 };
+
+module.exports.mercadoPagoPreference = mercadoPagoPreference;

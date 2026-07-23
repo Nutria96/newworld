@@ -1,0 +1,25 @@
+{
+  "name": "chongseb-music-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bot de música autoalojado para el Discord de CHONGSEB",
+  "main": "music.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node music.js",
+    "check": "node --check music.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.18.0",
+    "discord.js": "^14.22.1",
+    "dotenv": "^17.2.1",
+    "play-dl": "^1.9.7"
+  },
+  "optionalDependencies": {
+    "@discordjs/opus": "^0.10.0",
+    "opusscript": "^0.1.1"
+  }
+}

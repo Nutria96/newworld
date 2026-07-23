@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#0a0b10">
+  <title>CHONGSEB · Panel privado</title>
+  <style>
+    :root{color-scheme:dark;--cyan:#00ffff;--pink:#ff00ff;--gold:#ffcc00}
+    *{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 20% 10%,#30104a,#0a0b10 55%);font-family:system-ui,sans-serif;color:#fff}.panel{width:min(1000px,100%);padding:28px;border:1px solid var(--cyan);border-radius:24px;background:rgba(5,12,25,.82);box-shadow:0 0 32px rgba(0,255,255,.2);backdrop-filter:blur(15px)}h1{color:var(--gold);letter-spacing:.08em}.login{display:flex;gap:10px;flex-wrap:wrap}.login input{flex:1;min-width:220px;padding:13px;border:1px solid var(--cyan);border-radius:999px;background:#080b15;color:#fff}.login button,.review button{padding:10px 14px;border:1px solid var(--pink);border-radius:999px;background:transparent;color:#fff;cursor:pointer}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}.metric{padding:20px;border:1px solid rgba(0,255,255,.35);border-radius:18px;text-align:center;background:rgba(0,255,255,.04)}.metric strong{display:block;font-size:2rem;color:var(--cyan)}#status{min-height:1.5em;color:#ff9bad}.reviews{margin-top:28px}.review{margin:10px 0;padding:14px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(255,255,255,.04)}.review code{color:var(--cyan);overflow-wrap:anywhere}.review-actions{display:flex;gap:8px;margin-top:9px}.review-actions button:first-child{border-color:#65ff8a}.privacy-warning{color:#ffcc00;font-size:.8rem}@media(max-width:680px){.metrics{grid-template-columns:1fr 1fr}}
+    .household{margin-top:28px;padding:18px;border:1px solid var(--gold);border-radius:18px;background:rgba(255,204,0,.05)}.household-actions{display:flex;gap:10px;flex-wrap:wrap}.household button{padding:10px 14px;border:1px solid var(--pink);border-radius:999px;background:transparent;color:#fff;cursor:pointer}.household code{color:var(--cyan);overflow-wrap:anywhere}
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <h1>CHONGSEB · CONTROL DE MISIÓN</h1>
+    <p>Las métricas se obtienen del backend. La contraseña no se guarda en este navegador.</p>
+    <form class="login" id="loginForm">
+      <input id="password" type="password" autocomplete="current-password" required placeholder="Contraseña administrativa" aria-label="Contraseña">
+      <button type="submit">Consultar dashboard</button>
+    </form>
+    <p id="status" role="status"></p>
+    <section class="metrics" id="metrics" hidden>
+      <article class="metric"><strong id="referrals">0</strong>Referidos</article>
+      <article class="metric"><strong id="eligible">0</strong>Con descuento</article>
+      <article class="metric"><strong id="sales">0</strong>Ventas</article>
+      <article class="metric"><strong id="leads">0</strong>Correos</article>
+      <article class="metric"><strong id="revenue">$0</strong>Ingresos MXN</article>
+    </section>
+    <section class="reviews" id="reviews" hidden>
+      <h2>Solicitudes de acceso adulto</h2>
+      <p class="privacy-warning">Revisa la identidad siguiendo tu política privada. Este panel muestra metadatos mínimos y nunca datos biométricos.</p>
+      <div id="reviewList"></div>
+    </section>
+    <section class="household" id="householdControls" hidden>
+      <h2>Pase Hogar</h2>
+      <p class="privacy-warning">No utiliza IP ni geolocalización. Cada dispositivo debe canjear un código temporal. Habilita Tienda y Zona Infantil Premium; la sección adulta conserva obligatoriamente su verificación de edad.</p>
+      <div class="household-actions"><button id="issueHousehold" type="button">Generar código temporal</button><button id="revokeHousehold" type="button">Revocar todos los pases</button></div>
+      <p id="householdCode"></p><p id="householdPassStatus" role="status"></p>
+    </section>
+    <section class="household" id="promoControls" hidden>
+      <h2>Promoción adulta de 24 horas</h2>
+      <p class="privacy-warning">Otorga Premium temporal únicamente a cuentas adultas autenticadas y aprobadas. No desactiva la verificación de edad.</p>
+      <div class="household-actions"><button id="activatePromo" type="button">Activar 24 horas</button><button id="deactivatePromo" type="button">Desactivar ahora</button></div>
+      <p id="promoCountdown">Inactiva</p><p id="promoAdminStatus" role="status"></p>
+    </section>
+  </main>
+  <script>
+    const form=document.getElementById("loginForm"),status=document.getElementById("status"),metrics=document.getElementById("metrics"),reviews=document.getElementById("reviews"),reviewList=document.getElementById("reviewList");let adminToken="";
+    function renderReviews(items){reviewList.replaceChildren();for(const item of items){const card=document.createElement("article");card.className="review";const info=document.createElement("div");info.innerHTML=`<strong>${item.status.toUpperCase()}</strong> · <code>${item.userId}</code><br>Documento: ${item.documentType||"—"} · Año de nacimiento: ${item.birthYear||"—"} · Biometría registrada: ${item.biometricEnrolled?"sí":"no"} · Voz opcional: ${item.voiceFactorUsed?"sí":"no"}`;const actions=document.createElement("div");actions.className="review-actions";const view=document.createElement("button");view.type="button";view.textContent="Ver documento privado";view.onclick=async()=>{view.disabled=true;try{const response=await fetch(`/.netlify/functions/admin-adult-access?documentUser=${encodeURIComponent(item.userId)}`,{headers:{authorization:`Bearer ${adminToken}`}});if(!response.ok)throw new Error("No se pudo abrir el documento");const blob=await response.blob(),url=URL.createObjectURL(blob);open(url,"_blank","noopener");setTimeout(()=>URL.revokeObjectURL(url),60000)}catch(error){status.textContent=error.message}finally{view.disabled=false}};actions.append(view);for(const decision of ["approved","rejected"]){const button=document.createElement("button");button.type="button";button.textContent=decision==="approved"?"Aprobar":"Rechazar";button.onclick=async()=>{button.disabled=true;try{const response=await fetch("/.netlify/functions/admin-adult-access",{method:"POST",headers:{authorization:`Bearer ${adminToken}`,"content-type":"application/json"},body:JSON.stringify({userId:item.userId,status:decision})});const data=await response.json();if(!response.ok)throw new Error(data.error);item.status=decision;renderReviews(items)}catch(error){status.textContent=error.message}finally{button.disabled=false}};actions.append(button)}card.append(info,actions);reviewList.append(card)}if(!items.length)reviewList.textContent="No hay solicitudes."}
+    form.addEventListener("submit",async event=>{event.preventDefault();const password=document.getElementById("password"),button=form.querySelector("button");button.disabled=true;status.textContent="Consultando…";metrics.hidden=true;reviews.hidden=true;adminToken=password.value;try{const headers={authorization:`Bearer ${adminToken}`};const [metricsResponse,accessResponse]=await Promise.all([fetch("/.netlify/functions/admin-stats",{headers}),fetch("/.netlify/functions/admin-adult-access",{headers})]);const data=await metricsResponse.json(),access=await accessResponse.json();if(!metricsResponse.ok||!accessResponse.ok)throw new Error(data.error||access.error||"No autorizado");document.getElementById("referrals").textContent=data.referrals;document.getElementById("eligible").textContent=data.eligibleReferrals;document.getElementById("sales").textContent=data.completedSales;document.getElementById("leads").textContent=data.leads;document.getElementById("revenue").textContent=Number(data.revenueMxn).toLocaleString("es-MX",{style:"currency",currency:"MXN"});renderReviews(access.applications||[]);metrics.hidden=false;reviews.hidden=false;status.textContent=`Actualizado: ${new Date(data.updatedAt).toLocaleString("es-MX")}`}catch(error){adminToken="";status.textContent=error.message}finally{password.value="";button.disabled=false}});
+  </script>
+  <script>
+    new MutationObserver(()=>document.querySelectorAll(".review").forEach(card=>{
+      const actions=card.querySelector(".review-actions"),userId=card.querySelector("code")?.textContent;
+      if(!actions||!userId||actions.querySelector(".selfie-review"))return;
+      const button=document.createElement("button");button.type="button";button.className="selfie-review";button.textContent="Ver selfie privada";
+      button.onclick=async()=>{button.disabled=true;try{const response=await fetch(`/.netlify/functions/admin-adult-access?selfieUser=${encodeURIComponent(userId)}`,{headers:{authorization:`Bearer ${adminToken}`}});if(!response.ok)throw new Error("No se pudo abrir la selfie");const blob=await response.blob(),url=URL.createObjectURL(blob);open(url,"_blank","noopener");setTimeout(()=>URL.revokeObjectURL(url),60000)}catch(error){status.textContent=error.message}finally{button.disabled=false}};
+      actions.insertBefore(button,actions.children[1]||null);
+    })).observe(document.getElementById("reviewList"),{childList:true,subtree:true});
+  </script>
+  <script>
+    const householdControls=document.getElementById("householdControls"),householdCode=document.getElementById("householdCode"),householdPassStatus=document.getElementById("householdPassStatus");
+    async function householdRequest(body){const response=await fetch("/.netlify/functions/admin-household-pass",{method:"POST",headers:{authorization:`Bearer ${adminToken}`,"content-type":"application/json"},body:JSON.stringify(body)}),data=await response.json();if(!response.ok)throw new Error(data.error||"Pase Hogar no disponible");return data}
+    new MutationObserver(()=>{if(!metrics.hidden&&adminToken)householdControls.hidden=false}).observe(metrics,{attributes:true,attributeFilter:["hidden"]});
+    document.getElementById("issueHousehold").onclick=async()=>{householdPassStatus.textContent="Generando…";householdCode.textContent="";try{const data=await householdRequest({action:"issue"}),code=document.createElement("code");code.textContent=data.code;householdCode.replaceChildren(document.createTextNode("Código válido durante 15 minutos: "),code);householdPassStatus.textContent=`Hasta ${data.maxUses} dispositivos. Caduca: ${new Date(data.codeExpiresAt).toLocaleString("es-MX")}.`}catch(error){householdPassStatus.textContent=error.message}};
+    document.getElementById("revokeHousehold").onclick=async()=>{householdPassStatus.textContent="Revocando…";try{await householdRequest({action:"revoke"});householdCode.textContent="";householdPassStatus.textContent="Todos los Pases Hogar fueron revocados."}catch(error){householdPassStatus.textContent=error.message}};
+  </script>
+  <script>
+    const promoControls=document.getElementById("promoControls"),promoCountdown=document.getElementById("promoCountdown"),promoAdminStatus=document.getElementById("promoAdminStatus");let promoExpiresAt=0,promoTimer=0;
+    async function promoRequest(method,body){const response=await fetch("/.netlify/functions/admin-adult-promo",{method,headers:{authorization:`Bearer ${adminToken}`,"content-type":"application/json"},body:body?JSON.stringify(body):undefined}),data=await response.json();if(!response.ok)throw new Error(data.error||"Promoción no disponible");return data}
+    function renderPromo(){clearInterval(promoTimer);const draw=()=>{const remaining=Math.max(0,promoExpiresAt-Date.now());if(!remaining){promoCountdown.textContent="Inactiva";clearInterval(promoTimer);return}const hours=Math.floor(remaining/3600000),minutes=Math.floor(remaining%3600000/60000),seconds=Math.floor(remaining%60000/1000);promoCountdown.textContent=`Tiempo restante: ${hours}h ${minutes}m ${seconds}s`};draw();if(promoExpiresAt>Date.now())promoTimer=setInterval(draw,1000)}
+    async function loadPromo(){try{const data=await promoRequest("GET");promoExpiresAt=data.active?Date.parse(data.expiresAt):0;renderPromo()}catch(error){promoAdminStatus.textContent=error.message}}
+    new MutationObserver(()=>{if(!metrics.hidden&&adminToken){promoControls.hidden=false;loadPromo()}}).observe(metrics,{attributes:true,attributeFilter:["hidden"]});
+    document.getElementById("activatePromo").onclick=async()=>{promoAdminStatus.textContent="Activando…";try{const data=await promoRequest("POST",{action:"activate"});promoExpiresAt=Date.parse(data.expiresAt);renderPromo();promoAdminStatus.textContent="Promoción Premium activada para adultos verificados."}catch(error){promoAdminStatus.textContent=error.message}};
+    document.getElementById("deactivatePromo").onclick=async()=>{promoAdminStatus.textContent="Desactivando…";try{await promoRequest("POST",{action:"deactivate"});promoExpiresAt=0;renderPromo();promoAdminStatus.textContent="Promoción desactivada."}catch(error){promoAdminStatus.textContent=error.message}};
+  </script>
+</body>
+</html>

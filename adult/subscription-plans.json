@@ -1,0 +1,60 @@
+[
+  {
+    "id": "basic",
+    "name": "Básico",
+    "price": 0,
+    "currency": "USD",
+    "features": ["Acceso a 3 personajes", "Chat de texto", "Anuncios visibles"]
+  },
+  {
+    "id": "premium",
+    "name": "Premium",
+    "price": 9.99,
+    "currency": "USD",
+    "features": ["Todos los personajes", "Sin anuncios", "Chat con voz"],
+    "mercadopago_plan_env": "MERCADOPAGO_PREMIUM_PLAN_ID",
+    "paypal_plan_env": "PAYPAL_PREMIUM_PLAN_ID"
+  },
+  {
+    "id": "vip",
+    "name": "VIP",
+    "price": 19.99,
+    "currency": "USD",
+    "features": ["Todo Premium", "Contenido exclusivo privado", "Soporte prioritario"],
+    "mercadopago_plan_env": "MERCADOPAGO_VIP_PLAN_ID",
+    "paypal_plan_env": "PAYPAL_VIP_PLAN_ID"
+  },
+  {
+    "id": "store_premium",
+    "name": "Tienda Inteligente Premium",
+    "price": 10,
+    "currency": "USD",
+    "interval": "month",
+    "trial_days": 7,
+    "features": [
+      "Minimapa GPS con tiendas cercanas",
+      "Búsqueda ilimitada de productos",
+      "Consejos de ahorro personalizados",
+      "Ofertas exclusivas",
+      "Sin publicidad en la sección de tienda"
+    ],
+    "mercadopago_plan_env": "MERCADOPAGO_STORE_PLAN_ID",
+    "paypal_plan_env": "PAYPAL_STORE_PLAN_ID"
+  },
+  {
+    "id": "kids_premium",
+    "name": "Zona Infantil Premium",
+    "price": 8,
+    "currency": "USD",
+    "interval": "month",
+    "features": [
+      "Acceso a todas las misiones",
+      "Misiones adicionales avanzadas",
+      "Panel de progreso para padres",
+      "Recompensas virtuales e insignias",
+      "Sin anuncios en la zona infantil"
+    ],
+    "mercadopago_plan_env": "MERCADOPAGO_KIDS_PLAN_ID",
+    "paypal_plan_env": "PAYPAL_KIDS_PLAN_ID"
+  }
+]

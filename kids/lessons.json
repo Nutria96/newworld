@@ -1,0 +1,14 @@
+{
+  "lessons": [
+    {"id":"planet_magic","title":"La magia de separar","description":"Nuti descubre que cada residuo tiene un hogar distinto.","duration":45,"scene":"recycle","video":"","lesson":"Reciclar es como hacer magia: los materiales pueden tener una nueva vida. ¡El planeta te lo agradece!"},
+    {"id":"friendship_bridge","title":"El puente de la amistad","description":"Dos exploradores aprenden a escuchar y ayudarse.","duration":50,"scene":"friendship","video":"","lesson":"La amistad crece cuando escuchamos, respetamos y cuidamos a quienes nos rodean."},
+    {"id":"water_guardian","title":"Guardianes de cada gota","description":"Una llave traviesa enseña por qué el agua es valiosa.","duration":40,"scene":"water","video":"","lesson":"Cada gota cuenta. Cerrar la llave cuando no la usamos ayuda a cuidar el agua para todos."},
+    {"id":"curious_seed","title":"La semilla curiosa","description":"Una semilla pregunta, observa y encuentra cómo crecer.","duration":55,"scene":"garden","video":"","lesson":"Preguntar, observar y probar son grandes herramientas para aprender por tu cuenta."}
+  ],
+  "breaks": [
+    "Separar papel, vidrio y plástico facilita su aprovechamiento.",
+    "Una pausa para mirar una planta también puede enseñarnos algo nuevo.",
+    "Antes de tirar algo, pregunta: ¿se puede reutilizar?",
+    "Escuchar con atención también es una forma de cuidar a los demás."
+  ]
+}

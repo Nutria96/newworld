@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Acceso restringido | CHONGSEB</title>
+  <link rel="stylesheet" href="/adult/metaverse.css">
+  <link rel="stylesheet" href="/adult/login.css">
+  <link rel="stylesheet" href="/adult/ads.css">
+  <link rel="stylesheet" href="/adult/missions.css">
+  <link rel="stylesheet" href="/adult/interactive-ads.css">
+  <link rel="stylesheet" href="/media-uploader.css">
+  <style>
+    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 20% 20%,#17103a,#03040b 70%);color:#fff;font-family:system-ui,sans-serif}.panel{width:min(680px,94vw);padding:32px;border:1px solid #ff00ff;border-radius:24px;background:rgba(8,12,30,.88);box-shadow:0 0 42px rgba(255,0,255,.28);text-align:center}.panel h1{color:#00ffff}.panel a{display:inline-flex;margin-top:18px;padding:10px 16px;border:1px solid #00ffff;border-radius:999px;color:#00ffff;text-decoration:none}#restrictedContent[hidden],#denied[hidden]{display:none}
+  </style>
+</head>
+<body>
+  <main class="panel">
+    <p id="checking">Verificando sesión segura…</p>
+    <section id="restrictedContent" hidden>
+      <h1>CHONGSEB · Metaverso de conversación</h1>
+      <p>Espacio para adultos verificados. Los personajes virtuales están identificados como IA y no representan personas reales.</p>
+      <p><small>Privacidad y seguridad: las conversaciones se almacenan por personaje para mantener continuidad. No compartas datos sensibles. El contenido es generado por IA, puede equivocarse y no sustituye asesoría profesional. No se permite contenido ilegal, abusivo, coercitivo, explícito ni relacionado con menores.</small></p>
+      <aside class="adult-ad" id="adultAd" hidden><button id="adultAdClose" type="button" aria-label="Cerrar anuncio">×</button><div class="adult-ad-art" id="adultAdArt">✦</div><strong id="adultAdTitle">Descubre experiencias creativas exclusivas</strong><p id="adultAdText">Actualiza tu plan para navegar sin anuncios.</p><a id="adultAdLink" href="/account">Ver Premium</a><div class="adult-ad-dots" id="adultAdDots"></div></aside>
+      <div class="metaverse" id="metaverse">
+        <div class="avatar-grid" id="characterGrid" aria-live="polite"></div>
+        <section class="companion-chat" id="companionChat" aria-label="Chat de personaje virtual">
+          <div class="companion-stage"><div class="portrait" id="companionPortrait">🌸</div><strong id="companionTitle">Personaje virtual de IA</strong><div class="video-placeholder">Vista de video simulada · no hay cámara ni persona real conectada</div></div>
+          <div class="companion-console"><div class="companion-messages" id="companionMessages" aria-live="polite"></div><div class="media-preview" id="adultMediaPreview" aria-live="polite"></div><progress class="media-progress" id="adultMediaProgress" max="100" value="0" hidden></progress><form class="companion-form" id="companionForm"><button id="companionSpeak" type="button" aria-pressed="false">🔇 Voz apagada</button><label class="media-picker" aria-label="Adjuntar hasta 5 archivos">📎<input id="adultMediaInput" type="file" multiple accept="image/jpeg,image/png,image/gif,image/webp,audio/mpeg,audio/mp4,audio/ogg,audio/wav,audio/webm,video/mp4,video/webm,video/quicktime,application/pdf,text/plain,text/csv,application/json,text/markdown,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"></label><input id="companionInput" maxlength="4000" autocomplete="off" placeholder="Escribe un mensaje…"><button type="submit">Enviar</button></form></div>
+        </section>
+      </div>
+      <button class="missions-launch" id="missionsLaunch" type="button" aria-expanded="false" aria-controls="missionsHub">🧠 Misiones de conciencia</button>
+      <section class="missions-hub" id="missionsHub" hidden>
+        <h2>Misiones de conciencia</h2>
+        <p>Experiencias breves y opcionales sobre bienestar. Solo se guarda el XP y los logros que desbloquees.</p>
+        <div class="mission-grid" id="missionGrid" aria-live="polite"></div>
+      </section>
+      <aside class="interactive-ad" id="interactiveAd" hidden aria-label="Anuncio interactivo">
+        <div class="interactive-ad-head"><div><small>EXPERIENCIA PATROCINADA INTERNA</small><h2 id="adGameTitle">Anuncio interactivo</h2><p id="adGameDescription"></p></div><div class="interactive-ad-actions"><button id="adGameNext" type="button">Siguiente</button><button id="adGameClose" type="button" aria-label="Cerrar anuncio">✕</button></div></div>
+        <canvas class="ad-game-canvas" id="adGameCanvas" width="640" height="280"></canvas>
+        <div class="ad-game-controls" id="adGameControls"></div>
+        <div class="ad-reward" id="adGameReward" hidden><strong id="adRewardText"></strong><p>La oferta es opcional y se abre solamente si tú eliges continuar.</p><a id="adOfferLink" href="/account">Ver planes de CHONGSEB</a></div>
+      </aside>
+      <p class="premium-ad-message" id="premiumAdMessage" hidden>Eres Premium: disfruta de la experiencia sin anuncios.</p>
+      <section id="vipExclusive" hidden><h2>Galería VIP privada</h2><p>Contenido exclusivo disponible únicamente para suscripciones VIP activadas y verificadas por webhook.</p></section>
+      <a href="/account">Mi cuenta y planes</a>
+      <button class="metaverse-back" id="adultLogout" type="button">Cerrar sesión</button>
+      <a href="/">Volver al inicio</a>
+    </section>
+    <section id="denied" hidden><h1>Acceso no autorizado</h1><p>Completa la verificación y espera la aprobación manual desde la página principal, o inicia sesión si tu cuenta ya fue aprobada.</p><form id="adultLogin"><input name="username" autocomplete="username" placeholder="Usuario" required><input name="password" type="password" autocomplete="current-password" placeholder="Contraseña" required><button type="submit">Iniciar sesión</button></form><p id="loginStatus" role="status"></p><a href="/">Volver al inicio</a></section>
+  </main>
+  <section class="mission-player" id="missionPlayer" hidden aria-modal="true" role="dialog" aria-labelledby="missionTitle">
+    <div class="mission-shell">
+      <div class="mission-toolbar"><h2 id="missionTitle">Misión</h2><button id="missionClose" type="button" aria-label="Cerrar misión">✕</button></div>
+      <p id="missionInstructions"></p>
+      <canvas id="missionCanvas" width="560" height="420" aria-label="Área interactiva de la misión"></canvas>
+      <div class="mission-result" id="missionResult" hidden>
+        <strong id="missionReward"></strong>
+        <p id="missionResultText"></p>
+        <a id="missionResultSource" target="_blank" rel="noopener noreferrer"></a>
+        <div><button id="missionDone" type="button">Volver a misiones</button></div>
+      </div>
+    </div>
+  </section>
+  <script>
+    fetch("/.netlify/functions/adult-status",{credentials:"same-origin"})
+      .then(response=>response.json())
+      .then(data=>{document.getElementById("checking").hidden=true;document.getElementById(data.authenticated?"restrictedContent":"denied").hidden=false})
+      .catch(()=>{document.getElementById("checking").hidden=true;document.getElementById("denied").hidden=false});
+    document.getElementById("adultLogin").addEventListener("submit",async event=>{event.preventDefault();const form=event.currentTarget,status=document.getElementById("loginStatus"),button=form.querySelector("button");button.disabled=true;try{const response=await fetch("/.netlify/functions/adult-login",{method:"POST",credentials:"same-origin",headers:{"content-type":"application/json"},body:JSON.stringify({username:form.username.value,password:form.password.value})}),data=await response.json();if(!response.ok)throw new Error(data.error);location.reload()}catch(error){status.textContent=error.message}finally{button.disabled=false}});
+    document.getElementById("adultLogout").addEventListener("click",async()=>{await fetch("/.netlify/functions/adult-logout",{method:"POST",credentials:"same-origin"});location.href="/"});
+  </script>
+  <script src="/adult/subscriptions-ui.js"></script>
+  <script src="/media-uploader.js"></script>
+  <script src="/adult/metaverse.js"></script>
+  <script src="/adult/missions.js"></script>
+  <script src="/adult/interactive-ads.js"></script>
+</body>
+</html>

@@ -1,97 +1,126 @@
-# NASA CHONG FLOTA
+# Configuración automática del Discord de CHONGSEB
 
-![Nutria Astronauta](apps/web/assets/icon/nutria-astronauta-master.png)
+Este proyecto usa Discord.js v14 para crear y mantener la estructura del
+servidor CHONGSEB.
 
-## Solo llámame nutria
+## 1. Crear el bot
 
-La Nutria Astronauta nació como una imagen generada para representar el tono de la NASA de Chong: curiosidad, humor y aventura dentro de una burbuja cristalina. Esa imagen se convirtió en el emblema común de toda la flota. El azul medianoche aporta profundidad espacial; el cian comunica tecnología y claridad; el violeta añade el carácter interestelar; y el pequeño acento dorado representa la chispa juguetona de la misión.
+1. Entra a Discord Developer Portal.
+2. Crea una aplicación y agrega un bot.
+3. En **Bot → Privileged Gateway Intents**, activa:
+   - Server Members Intent.
+   - Message Content Intent.
+4. Invita el bot al servidor con estos permisos:
+   - Manage Channels.
+   - Manage Roles.
+   - Manage Messages.
+   - Send Messages.
+   - Embed Links.
+5. Coloca el rol del bot por encima de todos los roles que administrará.
 
-El mismo máster alimenta favicon, PWA, perfil social, instaladores Electron y recursos Capacitor, evitando identidades diferentes entre plataformas.
+Nunca publiques ni compartas el token del bot.
 
-Código compartido para web/PWA, Windows, macOS, Android e iOS.
-
-## Arquitectura
-
-- `apps/web`: interfaz compartida, PWA y modo offline.
-- `apps/desktop`: contenedor Electron endurecido (`contextIsolation`, sandbox y sin Node en la página).
-- `apps/mobile`: configuración Capacitor para Android/iOS.
-- `backend`: Netlify Functions y SQL existentes. Los secretos viven únicamente en el hosting.
-
-## Preparación
-
-Requiere Node 20+ y acceso a npm:
+## 2. Instalar dependencias
 
 ```powershell
+cd "C:\Users\Usuario\Documents\Codex\2026-07-14\proyecto-nasa-de-chong-gobierno-de\outputs\CHONGSEB_AUTO_BOSS"
 npm install
-npm test
 ```
 
-Antes de compilar, cambia `apps/web/config.js` para apuntar al Deploy Preview o a producción. El valor debe ser una URL pública; jamás agregues claves secretas.
-
-## Windows
+También puede hacerse explícitamente:
 
 ```powershell
-npm run build:win
+npm install discord.js dotenv
 ```
 
-Genera el instalador en `release/`. La firma Authenticode requiere un certificado del propietario.
-
-## macOS
-
-Ejecutar en una Mac con Xcode:
-
-```bash
-npm install
-npm run build:mac
-```
-
-Para distribución pública se necesitan Apple Developer ID, firma y notarización. Un `.dmg` confiable no puede producirse correctamente desde Windows sin esas credenciales.
-
-## Android
+## 3. Configurar `.env`
 
 ```powershell
-cd apps/mobile
-npx cap add android
-npm run sync
-npm run android
+Copy-Item .env.example .env
 ```
 
-Compila/firma el AAB desde Android Studio. Las notificaciones push reales requieren Firebase; el scaffold incluye la base para notificaciones locales.
+Edita `.env`:
 
-## iOS
-
-En macOS:
-
-```bash
-cd apps/mobile
-npx cap add ios
-npm run sync
-npm run ios
+```dotenv
+DISCORD_TOKEN=PEGA_AQUI_EL_TOKEN_REAL
+GUILD_ID=ID_DEL_SERVIDOR
+DISCORD_COMMAND_PREFIX=!
 ```
 
-Requiere Xcode y una cuenta Apple Developer. Cámara y micrófono deben solicitar permisos con descripciones claras antes de publicación.
+`GUILD_ID` puede omitirse únicamente cuando el bot pertenece a un solo
+servidor.
 
-## Pagos y secretos
+## 4. Reconstrucción total inicial
 
-Stripe Checkout y PayPal se abren fuera de la WebView. `SUPABASE_SERVICE_ROLE_KEY`, `STRIPE_SECRET_KEY`, `PAYPAL_CLIENT_SECRET` y `TELEGRAM_BOT_TOKEN` nunca se empaquetan en las apps. Las Netlify Functions conservan esas credenciales y verifican webhooks.
+Este comando elimina todos los canales y roles que Discord permita borrar:
 
-## Límites actuales
+```powershell
+node setup-chongseb.js --rebuild
+```
 
-- Hay UI y persistencia local de misiones; sincronización de usuario requiere definir autenticación en Supabase.
-- El reconocimiento de voz usa la API disponible del sistema/navegador.
-- Push remoto requiere configurar APNs y Firebase.
-- Se incluye un icono maestro, PNG de 16 a 1024 px, `.ico`, `.icns`, perfil social y splash. Capacitor puede derivar los catálogos nativos desde `apps/mobile/resources/` mediante `npx @capacitor/assets generate`.
+Equivalente:
 
-## Estructura final
+```powershell
+npm run discord:rebuild
+```
+
+El script no borrará nada hasta que escribas:
 
 ```text
-NASA_CHONG_FLOTA/
-  apps/
-    web/
-      assets/icon/       # Máster, PNG, ICO, ICNS y perfil social
-    desktop/              # Electron para Windows/macOS
-    mobile/resources/     # Fuentes para @capacitor/assets
-  backend/                # Netlify Functions y SQL de Supabase
-  tests/                  # Validaciones locales
-  tools/build-icons.ps1   # Generador reproducible de recursos
+RECONSTRUIR Nombre exacto del servidor
 ```
+
+Los roles administrados por Discord, el rol `@everyone` y el rol del bot se
+conservan.
+
+## 5. Inicio normal
+
+Después de la reconstrucción, inicia el bot sin el parámetro destructivo:
+
+```powershell
+node setup-chongseb.js
+```
+
+También puedes usar:
+
+```powershell
+npm run discord:chongseb
+```
+
+Mantén el proceso activo para recibir nuevos miembros, enviar el embed de
+bienvenida, atender comandos y revisar Veteranos cada 24 horas.
+
+## Comandos
+
+- `!add-chapiza @usuario`
+- `!add-juez @usuario`
+- `!check-veteranos`
+- `!premium` — solicita revisión manual; no concede el rol automáticamente.
+
+Los tres comandos administrativos solo funcionan para Fundador, Moderador o
+administradores.
+
+## Recursos visuales opcionales
+
+```dotenv
+DISCORD_ICON_PATH=C:\ruta\icono.png
+DISCORD_BANNER_PATH=C:\ruta\banner.png
+DISCORD_WELCOME_IMAGE_URL=https://dominio.example/nutria.png
+```
+
+El banner depende del nivel de mejoras disponible en el servidor.
+# Búsqueda universal segura
+
+El chat consulta SerpAPI solamente cuando el mensaje solicita enlaces, fuentes, recursos o información actual. Configura `SERPAPI_KEY` en Netlify para **Production** y **Deploy Previews**. Las fuentes reales se construyen exclusivamente con URLs devueltas por la búsqueda; el modelo no puede introducir enlaces como fuentes por su cuenta.
+
+Cuando no hay resultados, la IA puede ofrecer recursos explicativos sin URL. La interfaz los etiqueta como contenido generado por IA y aclara que no son fuentes publicadas. El chat adulto conserva autenticación, aprobación y filtros. La zona infantil actual no contiene chat ni búsqueda externa.
+
+## Publicación verificada
+
+El script se niega a publicar si la carpeta no es un repositorio Git, si `origin` no apunta a `Nutria96/newworld` o si la rama activa no es `main`.
+
+```powershell
+node push-to-github.js --confirm-main
+```
+
+Sin `--confirm-main` no modifica Git. Si no existen cambios, termina correctamente sin crear un commit vacío.

@@ -1,0 +1,47 @@
+CHONGSEB · KIT DE PUBLICACIÓN GLOBAL
+Enlace oficial: https://chongseb.netlify.app
+
+CHINA — ZHIHU（知乎）
+标题：我做了一个有 3D 星球、十种语言 AI 和等级系统的创意设计网站
+正文：CHONGSEB 是 Carlos Chong 打造的赛博朋克创意体验。你可以探索 3D 星球，与多语言 AI 对话，通过互动提升等级，并查看真实与神秘捐赠者墙。欢迎体验并提出建议：https://chongseb.netlify.app
+
+CHINA — TIEBA（百度贴吧）
+标题：分享一个赛博朋克创意网站：水獭、AI、3D 星球和 RPG 等级
+正文：刚上线的 CHONGSEB 支持中文等 10 种语言，有 3D 星球、互动水獭、多语言 AI、XP 等级和捐赠者墙。无需下载即可体验：https://chongseb.netlify.app
+
+CHINA — BILIBILI
+标题：我把平面设计网站做成了赛博朋克 RPG｜CHONGSEB
+简介：3D 星球 + 多语言 AI + 水獭助手 + XP 等级系统。这个项目把 Carlos Chong 的设计服务做成一段互动太空旅程。体验地址：https://chongseb.netlify.app
+
+CHINA — WEIBO（微博）
+🦦🚀 CHONGSEB 现已支持中文！这是一个融合 3D 星球、多语言 AI、互动水獭和 RPG 等级系统的赛博朋克设计体验。欢迎探索、反馈和分享：https://chongseb.netlify.app #网页设计# #人工智能# #赛博朋克#
+
+CHINA — XIAOHONGSHU（小红书）
+标题：把作品集做成太空游戏是什么体验？
+正文：我发现了 CHONGSEB：打开网页会看到 3D 星球和水獭向导，可以用中文和 AI 对话，互动还能升级 XP。视觉风格很像赛博朋克控制台。适合喜欢设计、AI 和创意网页的人。🔗 https://chongseb.netlify.app
+
+INTERNATIONAL — REDDIT r/design
+Title: I turned a graphic design portfolio into a multilingual cyberpunk mission
+Body: CHONGSEB combines Carlos Chong’s design work with a 3D geoid, a multilingual AI assistant, an XP progression system, and a donor wall. I’d appreciate honest feedback on clarity, accessibility, and whether the playful interface supports the portfolio instead of distracting from it. https://chongseb.netlify.app
+
+INTERNATIONAL — REDDIT r/webdev
+Title: Built a dependency-light multilingual experience with static JSON locales and an optional onboarding bot
+Body: CHONGSEB detects the browser language, loads one of 10 static locale files, falls back to English, supports RTL, and uses localStorage for language/tutorial state. It also includes a 3D geoid, chat, PWA support, payments, and an XP HUD. Feedback welcome: https://chongseb.netlify.app
+
+INTERNATIONAL — PRODUCT HUNT
+Tagline: A multilingual cyberpunk design studio that feels like a playable space mission.
+Description: Explore a 3D geoid, talk with a multilingual AI guide, level up through interactions, and discover Carlos Chong’s graphic design services—all inside a lightweight installable web experience.
+Link: https://chongseb.netlify.app
+
+INTERNATIONAL — HACKER NEWS
+Title: Show HN: CHONGSEB – a multilingual, game-like portfolio built with native web APIs
+Text: I built a lightweight cyberpunk portfolio using static JSON localization, native JavaScript, localStorage onboarding, PWA support, a serverless AI chat, and an XP HUD. The goal is to explore how playful interaction can support a real creative-services business. https://chongseb.netlify.app
+
+INTERNATIONAL — TWITTER/X
+🦦 CHONGSEB is now global: 10 languages, a live tutorial bot, multilingual AI, a 3D geoid and an XP progression system—all inside a cyberpunk graphic-design experience. Explore the mission: https://chongseb.netlify.app #webdesign #AI #i18n
+
+HORARIOS RECOMENDADOS
+- China (China Standard Time, UTC+8): 12:00–13:30 o 19:00–22:00.
+- Estados Unidos (hora local de la audiencia): martes a jueves, 09:00–11:00 o 17:00–19:00.
+- Europa Central (CET/CEST): martes a jueves, 08:00–10:00 o 18:00–20:00.
+- Publica una sola vez por comunidad, adapta el título a sus reglas y responde comentarios; evita duplicar el mismo mensaje.

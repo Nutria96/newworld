@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="referrer" content="no-referrer">
+  <title>Mi cuenta premium | CHONGSEB</title>
+  <style>
+    :root{color-scheme:dark;--cyan:#00ffff;--pink:#ff00ff;--gold:#ffcc00}*{box-sizing:border-box}body{margin:0;min-height:100vh;padding:28px;background:radial-gradient(circle at 20% 10%,#30104a,#060711 60%);color:#fff;font-family:system-ui,sans-serif}main{width:min(1000px,94vw);margin:auto}.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.plan{padding:20px;border:1px solid rgba(0,255,255,.4);border-radius:20px;background:rgba(5,12,28,.88)}.plan.current{border-color:var(--gold);box-shadow:0 0 25px rgba(255,204,0,.25)}.price{font-size:2rem;color:var(--gold)}button,a{display:inline-flex;margin:5px;padding:9px 13px;border:1px solid var(--pink);border-radius:999px;background:transparent;color:#fff;text-decoration:none;cursor:pointer}.events{margin-top:28px}.event{padding:10px;border-bottom:1px solid rgba(255,255,255,.14)}#status{min-height:1.4em;color:var(--gold)}@media(max-width:760px){.plans{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Mi cuenta CHONGSEB</h1>
+    <p id="summary">Consultando suscripción segura…</p>
+    <p id="status" role="status"></p>
+    <section class="plans" id="plans"></section>
+    <button id="cancelSubscription" type="button" hidden>Cancelar suscripción</button>
+    <section class="events"><h2>Historial</h2><div id="events"></div></section>
+    <a href="/adult">Volver al metaverso</a><a href="/">Inicio</a>
+  </main>
+  <script src="/account/account.js"></script>
+</body>
+</html>

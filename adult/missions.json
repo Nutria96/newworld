@@ -1,0 +1,37 @@
+{
+  "missions": [
+    {
+      "id": "mind_rhythm",
+      "title": "El Ritmo de la Mente",
+      "subtitle": "Toca 12 pulsos antes de que termine el tiempo.",
+      "rewardXp": 50,
+      "message": "El alprazolam (Xanax) es un medicamento de prescripción y puede causar dependencia y abstinencia. Úsalo únicamente como lo indique un profesional de salud; si la ansiedad te preocupa, pedir ayuda profesional es una decisión valiosa.",
+      "source": {
+        "title": "FDA: uso seguro de benzodiacepinas",
+        "url": "https://www.fda.gov/drugs/drug-safety-and-availability/fda-requiring-boxed-warning-updated-improve-safe-use-benzodiazepine-drug-class"
+      }
+    },
+    {
+      "id": "clarity_garden",
+      "title": "El Jardín de la Claridad",
+      "subtitle": "Mantén la planta saludable durante 30 segundos.",
+      "rewardXp": 50,
+      "message": "Así como una planta necesita cuidados, tu mente también. El cannabis puede afectar temporalmente la memoria, la atención y la concentración; los efectos varían entre personas. Toma decisiones informadas y consulta a un profesional si algo te preocupa.",
+      "source": {
+        "title": "NIDA: cannabis y salud",
+        "url": "https://nida.nih.gov/research-topics/cannabis-marijuana"
+      }
+    },
+    {
+      "id": "wellbeing_puzzle",
+      "title": "El Rompecabezas del Bienestar",
+      "subtitle": "Ordena las 9 piezas para reconstruir la escena.",
+      "rewardXp": 50,
+      "message": "El bienestar se construye con decisiones saludables, apoyo y comunicación. Si necesitas ayuda, hablar con alguien de confianza o con un profesional puede ser un buen primer paso.",
+      "source": {
+        "title": "SAMHSA: cómo pedir ayuda",
+        "url": "https://www.samhsa.gov/find-support/how-to-cope/how-to-ask-for-help"
+      }
+    }
+  ]
+}

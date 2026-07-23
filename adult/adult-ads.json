@@ -1,0 +1,47 @@
+[
+  {
+    "id": "neon_sequence",
+    "title": "Secuencia de Neón",
+    "type": "clicker",
+    "description": "Toca los destellos en orden y desbloquea tu recompensa.",
+    "reward": 15,
+    "link": "/account",
+    "duration": 30
+  },
+  {
+    "id": "desire_wheel",
+    "title": "Ruleta del Deseo",
+    "type": "wheel",
+    "description": "Gira la ruleta artística y descubre tu resultado.",
+    "reward": 10,
+    "link": "/account",
+    "duration": 30
+  },
+  {
+    "id": "midnight_race",
+    "title": "Carrera de Medianoche",
+    "type": "race",
+    "description": "Avanza entre luces de la ciudad hasta llegar a la meta.",
+    "reward": 20,
+    "link": "/account",
+    "duration": 45
+  },
+  {
+    "id": "velvet_puzzle",
+    "title": "Rompecabezas de Terciopelo",
+    "type": "puzzle",
+    "description": "Ordena seis fragmentos de una composición abstracta.",
+    "reward": 20,
+    "link": "/account",
+    "duration": 60
+  },
+  {
+    "id": "style_quiz",
+    "title": "Quiz de Estilo",
+    "type": "quiz",
+    "description": "Responde tres preguntas sobre cine, moda y cultura.",
+    "reward": 15,
+    "link": "/account",
+    "duration": 45
+  }
+]

@@ -1,0 +1,32 @@
+{
+  "missions": [
+    {
+      "id": "recycling",
+      "title": "El Recolector de Basura",
+      "icon": "♻️",
+      "premium": false,
+      "message": "¡Bien hecho! Separar los residuos ayuda a cuidar el planeta. Recuerda: cada cosa en su lugar."
+    },
+    {
+      "id": "garden",
+      "title": "El Jardín de la Vida",
+      "icon": "🌻",
+      "premium": false,
+      "message": "Las plantas nos dan oxígeno y belleza. Cuidarlas es cuidar nuestra vida. ¡Tú puedes ser jardinero!"
+    },
+    {
+      "id": "water",
+      "title": "El Detective del Agua",
+      "icon": "💧",
+      "premium": true,
+      "message": "El agua es un tesoro. Cerrar una llave que gotea evita desperdiciarla. ¡Tú eres un héroe del agua!"
+    },
+    {
+      "id": "research",
+      "title": "El Explorador Autodidacta",
+      "icon": "🔎",
+      "premium": true,
+      "message": "Aprender no es solo memorizar: también es investigar, comparar y entender. ¡Sigue curioseando!"
+    }
+  ]
+}

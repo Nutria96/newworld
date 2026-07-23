@@ -1,0 +1,8 @@
+[
+  {"id":"demo_1","name":"Mercado Nebulosa","lat":22.2494,"lng":-97.8612,"category":"abarrotes","averagePrice":145,"offer":"10% en compras de ejemplo","fictional":true},
+  {"id":"demo_2","name":"Ahorro Cósmico","lat":22.2551,"lng":-97.8668,"category":"hogar","averagePrice":210,"offer":"2x1 ficticio en limpieza","fictional":true},
+  {"id":"demo_3","name":"Tecno Nutria","lat":22.2437,"lng":-97.8539,"category":"tecnología","averagePrice":899,"offer":"Envío demo sin costo","fictional":true},
+  {"id":"demo_4","name":"Frutas Orión","lat":22.2602,"lng":-97.8571,"category":"alimentos","averagePrice":82,"offer":"Canasta demo de temporada","fictional":true},
+  {"id":"demo_5","name":"Farmacia Estelar","lat":22.2472,"lng":-97.8734,"category":"cuidado personal","averagePrice":175,"offer":"Precio de demostración","fictional":true},
+  {"id":"demo_6","name":"Moda Quásar","lat":22.2388,"lng":-97.8641,"category":"ropa","averagePrice":340,"offer":"15% ficticio en temporada","fictional":true}
+]

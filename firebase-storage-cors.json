@@ -1,0 +1,13 @@
+[
+  {
+    "origin": [
+      "https://www.chongseb.com",
+      "https://chongseb.com",
+      "https://chongseb.netlify.app",
+      "http://localhost:8888"
+    ],
+    "method": ["GET", "HEAD", "PUT"],
+    "responseHeader": ["Content-Type", "Content-Length", "ETag"],
+    "maxAgeSeconds": 3600
+  }
+]

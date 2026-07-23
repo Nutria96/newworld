@@ -1,0 +1,20 @@
+{
+  "name": "CHONGSEB - Diseño & IA",
+  "short_name": "CHONGSEB",
+  "description": "Diseño gráfico cyberpunk con inteligencia artificial y una nutria cósmica.",
+  "lang": "es-MX",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0B0C10",
+  "theme_color": "#FF00FF",
+  "icons": [
+    {
+      "src": "/nutria-icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

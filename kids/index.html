@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <title>Zona Infantil | CHONGSEB</title>
+  <link rel="stylesheet" href="/kids/kids.css">
+  <link rel="stylesheet" href="/kids/cartoons.css">
+</head>
+<body>
+  <header><a href="/" aria-label="Volver a CHONGSEB">🦦 CHONGSEB</a><strong>Zona Infantil</strong></header>
+  <main>
+    <section class="welcome">
+      <div class="mascot" aria-hidden="true">🦦🌱</div>
+      <div><h1>Aprende cuidando el planeta</h1><p>Misiones cortas para explorar, probar y descubrir a tu ritmo.</p></div>
+    </section>
+
+    <section class="gate" id="roleGate">
+      <h2>Antes de comenzar</h2>
+      <p>Esta zona necesita la ayuda de una persona adulta para configurar el acceso y los límites de tiempo.</p>
+      <div class="actions"><button id="childRole" type="button">Soy niño o niña</button><button id="parentRole" type="button">Soy madre, padre o tutor</button></div>
+      <p id="gateStatus" role="status"></p>
+    </section>
+
+    <section id="parentSetup" class="gate" hidden>
+      <h2>Configuración para adultos</h2>
+      <p>Crea un PIN de 4 a 8 números. Se guardará cifrado únicamente en este dispositivo.</p>
+      <form id="pinSetup"><input name="pin" type="password" inputmode="numeric" pattern="[0-9]{4,8}" minlength="4" maxlength="8" required aria-label="Nuevo PIN"><button type="submit">Guardar PIN y abrir</button></form>
+    </section>
+
+    <section id="parentUnlock" class="gate" hidden>
+      <h2>Necesitamos a una persona adulta</h2>
+      <p>Pide a tu madre, padre o tutor que escriba el PIN.</p>
+      <form id="pinUnlock"><input name="pin" type="password" inputmode="numeric" pattern="[0-9]{4,8}" required aria-label="PIN parental"><button type="submit">Abrir misiones</button></form>
+      <p id="pinStatus" role="status"></p>
+    </section>
+
+    <section id="kidsZone" hidden>
+      <div class="progress-card"><div><strong id="progressText">0 de 4 misiones</strong><div class="track"><i id="progressFill"></i></div></div><button id="parentPanelOpen" type="button">Panel de padres</button></div>
+      <div class="mission-grid" id="missionGrid"></div>
+      <section class="cartoons" id="cartoons">
+        <div class="cartoon-heading"><div><small>CONTENIDO ORIGINAL CHONGSEB</small><h2>🎬 Caricaturas educativas</h2><p>Microhistorias sobre naturaleza, amistad, respeto y curiosidad.</p></div><button id="randomLesson" type="button">🎲 Hazme una pregunta tonta</button></div>
+        <div class="cartoon-player">
+          <div class="cartoon-screen">
+            <video id="lessonVideo" playsinline preload="metadata" aria-label="Reproductor de caricaturas educativas"></video>
+            <canvas id="lessonFallback" width="640" height="360" aria-label="Animación educativa original"></canvas>
+            <div class="learningBreak" id="learningBreak" hidden aria-live="assertive"><strong>🌟 ¡Un momento! Esta pausa es para aprender algo nuevo…</strong><p id="breakMessage"></p><div class="breakTrack"><i id="breakProgress"></i></div><span id="breakCountdown">15 s</span></div>
+          </div>
+          <div class="cartoon-controls"><button id="lessonPlay" type="button" aria-label="Reproducir o pausar">▶️</button><input id="lessonProgress" type="range" min="0" max="100" value="0" aria-label="Progreso"><button id="lessonMute" type="button" aria-label="Activar o silenciar sonido">🔊</button><span id="lessonTime">0:00 / 0:00</span></div>
+          <div class="lesson-finish" id="lessonFinish" hidden><strong>Enseñanza de la misión</strong><p id="lessonMessage"></p></div>
+        </div>
+        <div class="lesson-list" id="lessonList" aria-label="Lista de caricaturas"></div>
+        <p class="content-note">Microcaricaturas originales de CHONGSEB. Las pausas son mensajes educativos internos, sin anuncios de terceros ni seguimiento publicitario.</p>
+      </section>
+      <section class="premium">
+        <h2>🌟 Zona Infantil Premium</h2>
+        <p>Desbloquea todas las misiones y el panel de progreso por <strong>$8 USD al mes</strong>. Es una suscripción recurrente y puede cancelarse.</p>
+        <div class="actions"><button data-provider="mercadopago" type="button">Continuar con Mercado Pago</button><button data-provider="paypal" type="button">Continuar con PayPal</button></div>
+        <button id="cancelKidsSubscription" type="button" hidden>Cancelar suscripción infantil</button>
+        <p id="subscriptionStatus" role="status"></p>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="gameDialog">
+    <div class="dialog-head"><h2 id="gameTitle">Misión</h2><button id="gameClose" type="button" aria-label="Cerrar">✕</button></div>
+    <p id="gameHelp"></p>
+    <canvas id="gameCanvas" width="640" height="420"></canvas>
+    <div id="gameControls"></div>
+    <section id="gameResult" hidden><h3>🏅 ¡Misión cumplida!</h3><p id="resultMessage"></p><button id="resultClose" type="button">Continuar explorando</button></section>
+  </dialog>
+
+  <dialog id="parentDialog">
+    <div class="dialog-head"><h2>Panel de padres</h2><button id="parentClose" type="button">✕</button></div>
+    <form id="parentPinCheck"><label>PIN parental <input name="pin" type="password" inputmode="numeric" required></label><button type="submit">Ver progreso</button></form>
+    <section id="parentStats" hidden>
+      <p id="playedTime"></p><p id="earnedBadges"></p>
+      <label>Límite diario
+        <select id="dailyLimit"><option value="15">15 minutos</option><option value="30">30 minutos</option><option value="45">45 minutos</option><option value="60">60 minutos</option></select>
+      </label>
+      <button id="saveLimit" type="button">Guardar límite</button>
+    </section>
+    <p id="parentStatus" role="status"></p>
+  </dialog>
+  <script src="/kids/cartoons.js"></script>
+  <script src="/kids/kids.js"></script>
+</body>
+</html>
