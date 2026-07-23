@@ -41,7 +41,7 @@ exports.handler = async (event) => {
       : process.env.AI_API_KEY;
   if (!key) return json(503, { error: "Chat no configurado" });
 
-  const base =
+  const directBase =
     provider === "openai"
       ? "https://api.openai.com/v1"
       : "https://api.deepseek.com/v1";
@@ -51,15 +51,19 @@ exports.handler = async (event) => {
   const system =
     "Sos el asistente de CHONGSEB. Respondé en español claro, natural, directo y seguro. Ayudá a orientar al cliente sobre diseño gráfico, branding, flyers y edición. No inventes fuentes, enlaces ni acciones.";
 
-  try {
-    const response = await fetch(`${base}/chat/completions`, {
+  const requestCompletion = async (base, apiKey, selectedModel) => {
+    const cleanBase = base.replace(/\/+$/, "");
+    const endpoint = cleanBase.endsWith("/v1")
+      ? `${cleanBase}/chat/completions`
+      : `${cleanBase}/v1/chat/completions`;
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: {
-        authorization: `Bearer ${key}`,
+        authorization: `Bearer ${apiKey}`,
         "content-type": "application/json",
       },
       body: JSON.stringify({
-        model,
+        model: selectedModel,
         messages: [
           { role: "system", content: system },
           { role: "user", content: question },
@@ -67,15 +71,30 @@ exports.handler = async (event) => {
         max_tokens: 900,
       }),
     });
-
-    if (!response.ok) {
-      return json(502, { error: "El proveedor de IA no respondió" });
-    }
-
+    if (!response.ok) throw new Error(`Proveedor respondió ${response.status}`);
     const data = await response.json();
     const answer = data.choices?.[0]?.message?.content?.trim();
-    if (!answer) return json(502, { error: "Respuesta vacía del proveedor" });
+    if (!answer) throw new Error("Respuesta vacía del proveedor");
+    return answer;
+  };
 
+  try {
+    let answer;
+    const omniBase = process.env.OMNIROUTE_BASE_URL;
+    const omniKey = process.env.OMNIROUTE_API_KEY;
+    if (omniBase && omniKey) {
+      try {
+        answer = await requestCompletion(
+          omniBase,
+          omniKey,
+          process.env.OMNIROUTE_MODEL || "auto",
+        );
+      } catch {
+        answer = await requestCompletion(directBase, key, model);
+      }
+    } else {
+      answer = await requestCompletion(directBase, key, model);
+    }
     cache.set(question, answer);
     return json(200, { respuesta: answer, restantes: limit.restantes });
   } catch {
